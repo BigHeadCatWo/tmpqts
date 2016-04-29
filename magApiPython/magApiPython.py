@@ -39,7 +39,7 @@ class magApi:
             self.dataStr=response.read()
         except Exception as e:
             successOrNot=False
-            error=e
+            self.error=e
         return self.successOrNot
     #exchange str to dict (json)
     def dataDict(self):
