@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "magApiTest", "..\GetOneHopN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOneHopNodeTest", "..\GetOneHopNode\GetOneHopNodeTest\GetOneHopNodeTest.csproj", "{8794EF8A-8739-4286-851F-25FB8878CD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOneHopNodeTestAsync", "..\GetOneHopNode\GetOneHopNodeTestAsync\GetOneHopNodeTestAsync.csproj", "{C5229790-3E67-4467-B3F3-9B767BB1F4D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5229790-3E67-4467-B3F3-9B767BB1F4D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5229790-3E67-4467-B3F3-9B767BB1F4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5229790-3E67-4467-B3F3-9B767BB1F4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5229790-3E67-4467-B3F3-9B767BB1F4D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
