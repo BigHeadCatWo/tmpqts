@@ -28,14 +28,36 @@ namespace restServer
             return composite;
         }
         //TODO 响应函数，获得数据后在函数内调用程序计算再返回进行输出
-        public responseData getPairAndResponse(RequestData rdata)
+        public ResponseDataPost postPairAndResponse(RequestDataPost rData)
         {
-            var data = rdata.pair;
-            responseData pathList =new responseData();
+            var data = rData.pair;
+            ResponseDataPost pathList =new ResponseDataPost();
             //json返回测试
             List<int> a = new List<int>(){ 1, 2 };
             List<int> b = new List<int>() { 1, 3, 2 };
             pathList.pathList = new List<List<int>>() { a, b };
+            return pathList;
+            //json返回测试
+        }
+
+
+        public ResponseDataGet getPairAndResponseIdId(UInt64 id1 = 0, UInt64 id2 = 0, UInt64 auid1 = 0, UInt64 auid2 = 0)
+        {
+            List<KeyValuePair<string, UInt64>> pair = new List<KeyValuePair<string, ulong>>();
+            //如果某个参数为0，说明没有输入这个参数
+            if (id1 != 0)
+                pair.Add(new KeyValuePair<string, UInt64>("Id", id1));
+            if (id2 != 0)
+                pair.Add(new KeyValuePair<string, UInt64>("Id", id2));
+            if (auid1 != 0)
+                pair.Add(new KeyValuePair<string, UInt64>("AA.AuId", auid1));
+            if (auid2 != 0)
+                pair.Add(new KeyValuePair<string, UInt64>("AA.AuId", auid2));
+            //json 返回测试
+            ResponseDataGet pathList = new ResponseDataGet();
+            List<UInt64> a = new List<UInt64>() { id1, id2 };
+            List<UInt64> b = new List<UInt64>() { auid1, 3, auid2 };
+            pathList.pathList = new List<List<UInt64>>() { a, b };
             return pathList;
             //json返回测试
         }
