@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-
+    
 namespace restServer
 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IService1”。
@@ -19,15 +19,22 @@ namespace restServer
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
-        // TODO: 需要根据比赛将URL进行修改
-        // 使用POST方法获得输入的json，调用函数计算并发送json
+        //// TODO: 需要根据比赛将URL进行修改
+        //// 使用POST方法获得输入的json，调用函数计算并发送json
+        //[OperationContract]
+        //[WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, RequestFormat =WebMessageFormat.Json, UriTemplate = "restTest/post")]
+        //ResponseDataPost postPairAndResponse(RequestDataPost rData);
+        /// <summary>
+        /// 使用get方法进行xiang'y
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="id2"></param>
+        /// <param name="auid1"></param>
+        /// <param name="auid2"></param>
+        /// <returns></returns>
         [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat =WebMessageFormat.Json, UriTemplate = "restTest/post")]
-        ResponseDataPost postPairAndResponse(RequestDataPost rData);
-
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "rest/get?id1={id1}&id2={id2}&auid1={auid1}&auid2={auid2}")]
-        ResponseDataGet getPairAndResponseIdId(UInt64 id1=0, UInt64 id2=0,UInt64 auid1=0,UInt64 auid2=0);
+        [WebGet(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "rest/get?id1={id1}&id2={id2}&auid1={auid1}&auid2={auid2}")]
+        List<List<UInt64>> getPairAndResponseIdId(UInt64 id1=0, UInt64 id2=0,UInt64 auid1=0,UInt64 auid2=0);
     }
 
 
@@ -72,6 +79,6 @@ namespace restServer
     }
     public class ResponseDataGet
     {
-       public List<List<UInt64>> pathList { get; set; }
+       public List<UInt64> pathList { get; set; }
     }
 }
