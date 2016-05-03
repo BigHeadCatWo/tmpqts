@@ -36,12 +36,11 @@ namespace GetOneHopNode
             SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
             switch (sourceNode.Key)
             {
-                //安装题目中的path条件获取1-hop节点
                 case "Id":
                     {
                         StringBuilder str = new StringBuilder("Id=");
                         str.Append(sourceNode.Value.ToString());
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id,F.FId,AA.AuId,RId,J.JId,C.CId");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id,F.FId,AA.AuId,RId,J.JId,C.CId");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -50,7 +49,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(AA.AuId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id,AA.AfId");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id,AA.AfId");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -59,7 +58,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(AA.AfId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "AA.AuId");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "AA.AuId");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -68,7 +67,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(C.CId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -77,7 +76,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(F.FId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -86,7 +85,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(J.JId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
