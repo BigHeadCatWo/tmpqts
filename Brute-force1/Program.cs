@@ -10,12 +10,10 @@ namespace Brute_force1
     {
         static void Main(string[] args)
         {
-            Solution sol = new Solution();
         }
     }
     class Solution
     {
-        private static GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
         /// <summary>
         /// pair比较函数，小于号
         /// </summary>
@@ -72,6 +70,7 @@ namespace Brute_force1
             *  获取1-Hop的node list
             *  by Esdreal
             */
+            GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
             retval = getOneHop.getNode(nodeid);
             return retval;
         }
