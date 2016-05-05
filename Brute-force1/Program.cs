@@ -10,6 +10,10 @@ namespace Brute_force1
     {
         static void Main(string[] args)
         {
+            KeyValuePair<string, UInt64> node1 = new KeyValuePair<string, UInt64>("Id", 1970381522);
+            KeyValuePair<string, UInt64> node2 = new KeyValuePair<string, UInt64>("Id", 2162351023);
+
+            Solution.solve(node1, node2);
         }
     }
     class Solution
@@ -111,6 +115,8 @@ namespace Brute_force1
                     //有相同
                     //输出two-hop路径，这里可以进行json封装返回
                     Console.WriteLine("[{0},{1},{2}]", node1, node1set.ElementAt<KeyValuePair<string, UInt64>>(i), node2);
+                    i++;
+                    j++;
                 }
             }
             //这里可以区分一下哪一个的数量更小，用来减少查询的次数
