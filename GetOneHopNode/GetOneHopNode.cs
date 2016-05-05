@@ -111,7 +111,10 @@ namespace GetOneHopNode
                             idValue = (UInt64)(int)h["value"];
                         }
                     }
-                    nodeList.Add(new KeyValuePair<string, UInt64>((string)s["attribute"], idValue));
+                    string key = (string)s["attribute"];
+                    if (key == "RId")
+                        key = "Id";
+                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
                 }
             }
             return nodeList;
