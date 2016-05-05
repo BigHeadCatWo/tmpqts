@@ -1,0 +1,7 @@
+I:\github\tmpqts\GetOneHopNode\bin\Debug\GetOneHopNode.dll
+I:\github\tmpqts\GetOneHopNode\bin\Debug\GetOneHopNode.pdb
+I:\github\tmpqts\GetOneHopNode\bin\Debug\magApiCs.dll
+I:\github\tmpqts\GetOneHopNode\bin\Debug\magApiCs.pdb
+I:\github\tmpqts\GetOneHopNode\obj\Debug\GetOneHopNode.csprojResolveAssemblyReference.cache
+I:\github\tmpqts\GetOneHopNode\obj\Debug\GetOneHopNode.dll
+I:\github\tmpqts\GetOneHopNode\obj\Debug\GetOneHopNode.pdb
