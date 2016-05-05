@@ -40,7 +40,7 @@ namespace GetOneHopNode
                     {
                         StringBuilder str = new StringBuilder("Id=");
                         str.Append(sourceNode.Value.ToString());
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id,F.FId,AA.AuId,RId,J.JId,C.CId");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "F.FId,AA.AuId,RId,J.JId,C.CId");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
