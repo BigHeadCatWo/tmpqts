@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOneHopNode", "GetOneHopNode\GetOneHopNode.csproj", "{6BB600F1-89AA-45AB-B092-F108C202E60D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "magApiCs", "..\magApiCs\magApiCs\magApiCs.csproj", "{A89CB32B-663D-425E-8364-81997B0DB435}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "magApiCs", "magApiCs\magApiCs.csproj", "{A89CB32B-663D-425E-8364-81997B0DB435}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "magApiTest", "magApiTest\magApiTest.csproj", "{A80C78BB-3C79-4065-B4EA-2496BDE397B4}"
 EndProject
