@@ -16,7 +16,7 @@ namespace GetOneHopNodeTest
         static void Main(string[] args)
         {
             GetOneHopNodeClass nodeSearch = new GetOneHopNodeClass();
-            SortedSet<KeyValuePair<string, UInt64>> nodeList = nodeSearch.getNode(new KeyValuePair<string, ulong>("Id", 2274896837));
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = nodeSearch.getNode(new KeyValuePair<string, ulong>("C.CId", 1192655580));
             nodeList = nodeSearch.getNode(new KeyValuePair<string, ulong>("F.FId", 55004796));
             nodeList = nodeSearch.getNode(new KeyValuePair<string, ulong>("AA.AfId", 204722609));
             nodeList = nodeSearch.getNode(new KeyValuePair<string, ulong>("AA.AuId", 2100880362));

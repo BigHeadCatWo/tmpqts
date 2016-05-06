@@ -55,6 +55,7 @@ namespace magApiCs
                 throw new Exception(ex.Message);
             }
             JavaScriptSerializer json = new JavaScriptSerializer();
+            json.MaxJsonLength = 209715200;
             try
             {
                 jsonStr = response.Result.Content.ReadAsStringAsync().Result;
