@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\GetOneHopNode\GetOneHopNode\GetOneHopNode.csproj">
+    <ProjectReference Include="..\GetOneHopNode\GetOneHopNode.csproj">
       <Project>{6bb600f1-89aa-45ab-b092-f108c202e60d}</Project>
       <Name>GetOneHopNode</Name>
     </ProjectReference>

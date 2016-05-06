@@ -23,7 +23,21 @@ namespace GetOneHopNode
                     return x.Value.CompareTo(y.Value);
             }
         }
-
+        /// <summary>
+        /// 获取1-hop节点
+        /// </summary>
+        /// <param name="sourceNode"></param>
+        /// <returns></returns>
+        //public SortedSet<KeyValuePair<string, UInt64>> getNode(SortedSet<KeyValuePair<string, UInt64>> srcNodeSet)
+        //{
+        //    SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
+        //    StringBuilder str = new StringBuilder("Composite(AA.AuId=");
+        //    str.Append(sourceNode.Value.ToString());
+        //    str.Append(')');
+        //    Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id,AA.AfId");
+        //    attr = ((ArrayList)dataJson["histograms"]);
+        //    return nodeList;
+        //}
         /// <summary>
         /// 获取1-hop节点
         /// </summary>
