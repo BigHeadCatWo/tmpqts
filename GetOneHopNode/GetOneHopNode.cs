@@ -23,6 +23,7 @@ namespace GetOneHopNode
                     return x.Value.CompareTo(y.Value);
             }
         }
+        private magApi mag = new magApi();
         /// <summary>
         /// 获取1-hop节点
         /// </summary>
@@ -45,7 +46,6 @@ namespace GetOneHopNode
         /// <returns></returns>
         public SortedSet<KeyValuePair<string, UInt64>> getNode(KeyValuePair<string, UInt64> sourceNode)
         {
-            magApi mag = new magApi();
             ArrayList attr =new ArrayList();
             SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
             switch (sourceNode.Key)

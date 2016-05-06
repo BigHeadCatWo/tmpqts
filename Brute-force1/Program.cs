@@ -74,6 +74,7 @@ namespace Brute_force1
             retval = getOneHop.getNode(nodeid);
             return retval;
         }
+
         public static Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> GetTwoHopNode(SortedSet<KeyValuePair<string, UInt64>> hop1set)
         {
             Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> dic = new Dictionary<KeyValuePair<string, ulong>, SortedSet<KeyValuePair<string, ulong>>>();
@@ -91,6 +92,36 @@ namespace Brute_force1
             }
             return dic;
         }
+        /// <summary>
+        /// 并行获取2-hopNodeLIST
+        /// </summary>
+        /// <param name="hop1set"></param>
+        /// <returns></returns>
+        public static Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> GetTwoHopNodeAsync(SortedSet<KeyValuePair<string, UInt64>> hop1set)
+        {
+            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> dic = new Dictionary<KeyValuePair<string, ulong>, SortedSet<KeyValuePair<string, ulong>>>();
+            //通过id获取one-hop节点集合
+            long start, end;
+            //
+            List<Task> taskList = new List<Task>();
+            //
+            GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+            foreach (KeyValuePair<string, UInt64> nodeid in hop1set)
+            {
+                Task t=Task.Run(()=>{
+                    Console.WriteLine("find:{0}:{1}", nodeid.Key, nodeid);
+                    start = DateTime.Now.Ticks;
+                    SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(nodeid);
+                    end = DateTime.Now.Ticks;
+                    Console.WriteLine("{0}:获取hop1set花费时间,{1},set大小:{2}", (end - start) / 1000000,nodeid, tmp.Count());
+                    dic.Add(nodeid, tmp); });
+                taskList.Add(t);
+            }
+            
+            Task.WaitAll(taskList.ToArray());
+            return dic;
+        }
+
         //public static SortedSet<KeyValuePair<string, UInt64>> GetTwoHopNode2(SortedSet<KeyValuePair<string, UInt64>> hop1set, KeyValuePair<string, UInt64>dst)
         //{
         //    SortedSet<KeyValuePair<string, UInt64>> res = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
@@ -129,7 +160,7 @@ namespace Brute_force1
             start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> hop1set = GetOneHopNode(node1);
             end = DateTime.Now.Ticks;
-            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop1set.ToList().Capacity);
+            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 10000000, hop1set.ToList().Capacity);
             if (!(node1.Key.Equals("AA.AuId") && node2.Key.Equals("AA.AuId")))
             {
                 ///当两个节点都是AA.AuId时，不可能存在一跳关系
@@ -155,7 +186,7 @@ namespace Brute_force1
             //}
             /// 方式2：根据node1的一跳集合得到node1的两跳集合，看是否包含node2
              start = DateTime.Now.Ticks;
-            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNode(hop1set);
+            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNodeAsync(hop1set);
             SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
             foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
             {
@@ -169,7 +200,7 @@ namespace Brute_force1
             }
 
             end = DateTime.Now.Ticks;
-            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop2set.ToList().Capacity);
+            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 10000000, hop2set.ToList().Capacity);
             //step3:获取三跳关系
             //start = DateTime.Now.Ticks;
             //Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop3dic = GetTwoHopNode(hop2set);
