@@ -46,6 +46,7 @@ namespace GetOneHopNode
         /// </summary>
         /// <param name="sourceNode"></param>
         /// <returns></returns>
+       
         public SortedSet<KeyValuePair<string, UInt64>> getNode(KeyValuePair<string, UInt64> sourceNode)
         {
             ArrayList attr =new ArrayList();
@@ -92,7 +93,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(F.FId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000, attributes: "Id");
                         attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
@@ -107,6 +108,8 @@ namespace GetOneHopNode
                     }
             }
             //构造1-hop node列表
+            Console.WriteLine("hehe");
+            long start = DateTime.Now.Ticks;
             foreach (Dictionary<string, object> s in attr)
             {
                 foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
@@ -133,6 +136,8 @@ namespace GetOneHopNode
                     nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
                 }
             }
+            long end = DateTime.Now.Ticks;
+            Console.WriteLine("cost:{0}", (end - start) / 100000000);
             return nodeList;
         }
         public bool checkNodeWithCondition(KeyValuePair<string, UInt64> sourceNode, KeyValuePair<string, UInt64> dstNode)
@@ -155,7 +160,7 @@ namespace GetOneHopNode
                         else if (!dstNode.Key.Equals("AA.AfId"))
                         {
                             str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
 
@@ -174,7 +179,7 @@ namespace GetOneHopNode
                         if (dstNode.Key.Equals("AA.AfId"))
                         {
                             str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
                         break;
@@ -186,7 +191,7 @@ namespace GetOneHopNode
                         if (dstNode.Key.Equals("AA.AuId"))
                         {
                             str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
                         break;
@@ -198,7 +203,7 @@ namespace GetOneHopNode
                         if (dstNode.Key.Equals("Id"))
                         {
                             str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
                         break;
@@ -210,7 +215,7 @@ namespace GetOneHopNode
                         if (dstNode.Key.Equals("Id"))
                         {
                             str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
                         break;
@@ -222,7 +227,7 @@ namespace GetOneHopNode
                         if (dstNode.Key.Equals("Id"))
                         {
                             str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: dstNode.Key);
                             attr = ((ArrayList)dataJson["histograms"]);
                         }
                         break;

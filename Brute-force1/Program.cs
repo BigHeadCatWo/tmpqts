@@ -39,9 +39,9 @@ namespace Brute_force1
             ///两跳测试
             ///id--id
             node1 = new KeyValuePair<string, UInt64>("Id", 2094437628);
-            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2273736245);
+            node2 = new KeyValuePair<string, UInt64>("Id", 2088397685);
             Solution.solve(node1, node2);
-            //Solution.testGetThreeHopNodeAsync();
+
             Console.ReadLine();
         }
     }
@@ -110,17 +110,25 @@ namespace Brute_force1
             foreach (KeyValuePair<string, UInt64> nodeid in hop1set)
             {
                 Task t=Task.Run(()=>{
-                  //  Console.WriteLine("find:{0}:{1}", nodeid.Key, nodeid);
-                  //  start = DateTime.Now.Ticks;
+                    Console.WriteLine("tofind:{0}", nodeid);
+                    start = DateTime.Now.Ticks;
                     SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(nodeid);
-                 //   end = DateTime.Now.Ticks;
-                  //  Console.WriteLine("{0}:获取hop1set花费时间,{1},set大小:{2}", (end - start) / 1000000,nodeid, tmp.Count());
+                    end = DateTime.Now.Ticks;
+                    Console.WriteLine("{0}花费时间:{1},set大小:{2}", nodeid,(end - start) / 1000000, tmp.Count());
                     dic.Add(nodeid, tmp); });
                 taskList.Add(t);
             }
             
             Task.WaitAll(taskList.ToArray());
             return dic;
+        }
+        public static void testGetTwoHopNodeAsync()
+        {
+            SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
+            hop2set.Add(new KeyValuePair<string, ulong>("F.FId", 124657808));
+
+            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop3res = GetTwoHopNodeAsync(hop2set);
+            
         }
         public static void testGetThreeHopNodeAsync()
         {
@@ -146,6 +154,16 @@ namespace Brute_force1
             GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
             foreach (KeyValuePair<string, UInt64> nodeid in hop2set)
             {
+                if (dstNode.Key == "Id")
+                {
+                    if (nodeid.Key == "AA.AfId")
+                        continue;
+                }
+                if (dstNode.Key == "AA.AuId")
+                {
+                    if (nodeid.Key != "Id"&& nodeid.Key != "AA.AfId")
+                        continue;
+                }
                 Task t = Task.Run(() => {
                     //  Console.WriteLine("find:{0}:{1}", nodeid.Key, nodeid);
                     //  start = DateTime.Now.Ticks;
@@ -178,10 +196,12 @@ namespace Brute_force1
         /// </summary>
         /// <param name="node1">节点1</param>
         /// <param name="node2">节点2</param>
+       
         public static void solve(KeyValuePair<string, UInt64> node1, KeyValuePair<string, UInt64> node2)
         {
             long count = 0;
             long start, end,start_;
+            int chushu = 100000000;
             start_ = DateTime.Now.Ticks;
             ///step1:获取node1和node2是否存在一跳关系
             ///方式1：使用and来直接判断,可以避免json序列化过长
@@ -202,8 +222,8 @@ namespace Brute_force1
             start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> hop1set = GetOneHopNode(node1);
             end = DateTime.Now.Ticks;
-            Console.WriteLine("一跳查询花费{0}:set大小：{1}", (end - start) / 100000000, hop1set.ToList().Capacity);
-            if (!(node1.Key.Equals("AA.AuId") && node2.Key.Equals("AA.AuId")))
+            Console.WriteLine("一跳查询花费{0}:set大小：{1}", (end - start) / chushu, hop1set.ToList().Capacity);
+            if (!(node1.Key=="AA.AuId" && node2.Key=="AA.AuId"))
             {
                 ///当两个节点都是AA.AuId时，不可能存在一跳关系
                 if (hop1set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
@@ -218,7 +238,7 @@ namespace Brute_force1
                 }
             }
             end = DateTime.Now.Ticks;
-            Console.WriteLine("一跳全部花费{0}", (end - start) / 100000000);
+            Console.WriteLine("一跳全部花费{0}", (end - start) / chushu);
             ///step2:获取两跳关系
             ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断，有问题
             //start = DateTime.Now.Ticks;
@@ -235,7 +255,7 @@ namespace Brute_force1
             start = DateTime.Now.Ticks;
             Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNodeAsync(hop1set);
             end = DateTime.Now.Ticks;
-            Console.WriteLine("二跳查询花费{0}", (end - start) / 100000000);
+            Console.WriteLine("二跳查询花费{0}", (end - start) / chushu);
             SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
             foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
             {
@@ -248,7 +268,7 @@ namespace Brute_force1
                 }
             }
             end = DateTime.Now.Ticks;
-            Console.WriteLine("二跳全部花费{0}:set大小：{1}", (end - start) / 100000000, hop2set.ToList().Capacity);
+            Console.WriteLine("二跳全部花费{0}:set大小：{1}", (end - start) / chushu, hop2set.ToList().Capacity);
             //step3:获取三跳关系
             ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断
             //start = DateTime.Now.Ticks;
@@ -262,7 +282,7 @@ namespace Brute_force1
             start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> hop3res = GetThreeHopNodeAsync(hop2set,node2);
             end = DateTime.Now.Ticks;
-            Console.WriteLine("三跳查询花费{0}", (end - start) / 1000000);
+            Console.WriteLine("三跳查询花费{0}", (end - start) / chushu);
             foreach (KeyValuePair<string, UInt64> lastnode in hop3res)
             {
                 foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
@@ -275,8 +295,8 @@ namespace Brute_force1
                 }
             }
             end = DateTime.Now.Ticks;
-            Console.WriteLine("三跳全部花费{0}", (end - start) / 1000000);
-            Console.WriteLine("总时间{0}", (end - start_) / 1000000);
+            Console.WriteLine("三跳全部花费{0}", (end - start) / chushu);
+            Console.WriteLine("总时间{0}", (end - start_) / chushu);
         }
     }
 }
