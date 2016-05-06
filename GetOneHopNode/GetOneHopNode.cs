@@ -133,48 +133,131 @@ namespace GetOneHopNode
             }
             return nodeList;
         }
-        public bool checkOneHop(KeyValuePair<string, UInt64> sourceNode, KeyValuePair<string, UInt64> dstNode)
+        public SortedSet<KeyValuePair<string, UInt64>> getNodeWithCondition(SortedSet<KeyValuePair<string, UInt64>> hop1Set,KeyValuePair<string, UInt64> dstNode)
         {
             magApi mag = new magApi();
             ArrayList attr = new ArrayList();
-            Console.WriteLine("[{0}:{1}   {2}:{3}]", sourceNode.Key, sourceNode.Value, dstNode.Key,dstNode.Value);
-            switch (sourceNode.Key)
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
+            foreach (KeyValuePair<string, UInt64> sourceNode in hop1Set)
             {
-                case "Id":
-                    {
-                        StringBuilder str = new StringBuilder("And(Id=");
-                        str.Append(sourceNode.Value.ToString());
-                        if (dstNode.Key.Equals("Id"))
+                switch (sourceNode.Key)
+                {
+                    case "Id":
                         {
-                            str.Append(",RId" + "=" + dstNode.Value + ")");
+                            StringBuilder str = new StringBuilder("And(Id=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("Id"))
+                            {
+                                str.Append(",RId" + "=" + dstNode.Value + ")");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            else if(!dstNode.Key.Equals("AA.AfId"))
+                            {
+                                str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            
+                            break;
                         }
-                        else
+                    case "AA.AuId":
                         {
-                            str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                            StringBuilder str = new StringBuilder("And(Composite(AA.AuId=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("Id"))
+                            {
+                                str.Append("),Id" + "=" + dstNode.Value + ")");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            if (dstNode.Key.Equals("AA.AfId"))
+                            {
+                                str.Append("),Composite(" +dstNode.Key+"=" + dstNode.Value + "))");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            break;
                         }
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                        attr = ((ArrayList)dataJson["histograms"]);
-                        break;
-                    }
-                case "AA.AuId":
-                    {
-                        StringBuilder str = new StringBuilder("And(Composite(AA.AuId=");
-                        str.Append(sourceNode.Value.ToString());
-                        if (dstNode.Key.Equals("Id"))
+                    case "AA.AfId":
                         {
-                            str.Append("),Id" + "=" + dstNode.Value + ")");
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                            attr = ((ArrayList)dataJson["histograms"]);
+                            StringBuilder str = new StringBuilder("And(Composite(AA.AfId=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("AA.AuId"))
+                            {
+                                str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            break;
                         }
-                        break;
-                    }
+                    case "C.CId":
+                        {
+                            StringBuilder str = new StringBuilder("And(Composite(C.CId=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("Id"))
+                            {
+                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            break;
+                        }
+                    case "F.FId":
+                        {
+                            StringBuilder str = new StringBuilder("And(Composite(F.FId=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("Id"))
+                            {
+                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            break;
+                        }
+                    case "J.JId":
+                        {
+                            StringBuilder str = new StringBuilder("Composite(J.JId=");
+                            str.Append(sourceNode.Value.ToString());
+                            if (dstNode.Key.Equals("Id"))
+                            {
+                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                                attr = ((ArrayList)dataJson["histograms"]);
+                            }
+                            break;
+                        }
+                }
             }
-            //attr中是否有结果
+           
             foreach (Dictionary<string, object> s in attr)
             {
-                return true;
+                foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                {
+                    UInt64 idValue;
+                    try
+                    {
+                        idValue = (UInt64)h["value"];
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            idValue = (UInt64)(long)h["value"];
+                        }
+                        catch
+                        {
+                            idValue = (UInt64)(int)h["value"];
+                        }
+                    }
+                    string key = (string)s["attribute"];
+                    
+                    if (key == "RId")
+                        key = "Id";
+                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
+                }
             }
-            return false;
+            return nodeList;
         }
     }
 }
