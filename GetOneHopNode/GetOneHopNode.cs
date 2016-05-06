@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using magApiCs;
 using System.Collections;
+using System.IO;
+
 namespace GetOneHopNode
 {
 
@@ -133,132 +135,107 @@ namespace GetOneHopNode
             }
             return nodeList;
         }
-        public SortedSet<KeyValuePair<string, UInt64>> getNodeWithCondition(SortedSet<KeyValuePair<string, UInt64>> hop1Set,KeyValuePair<string, UInt64> dstNode)
+        public bool checkNodeWithCondition(KeyValuePair<string, UInt64> sourceNode, KeyValuePair<string, UInt64> dstNode)
         {
             magApi mag = new magApi();
             ArrayList attr = new ArrayList();
             SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
-            foreach (KeyValuePair<string, UInt64> sourceNode in hop1Set)
+            switch (sourceNode.Key)
             {
-                switch (sourceNode.Key)
-                {
+                case "Id":
+                    {
+                        StringBuilder str = new StringBuilder("And(Id=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
+                        {
+                            str.Append(",RId" + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
+                        }
+                        else if (!dstNode.Key.Equals("AA.AfId"))
+                        {
+                            str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
+                        }
 
-                    case "Id":
+                        break;
+                    }
+                case "AA.AuId":
+                    {
+                        StringBuilder str = new StringBuilder("And(Composite(AA.AuId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
                         {
-                            StringBuilder str = new StringBuilder("And(Id=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("Id"))
-                            {
-                                str.Append(",RId" + "=" + dstNode.Value + ")");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            else if(!dstNode.Key.Equals("AA.AfId"))
-                            {
-                                str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            
-                            break;
+                            str.Append("),Id" + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                    case "AA.AuId":
+                        if (dstNode.Key.Equals("AA.AfId"))
                         {
-                            StringBuilder str = new StringBuilder("And(Composite(AA.AuId=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("Id"))
-                            {
-                                str.Append("),Id" + "=" + dstNode.Value + ")");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            if (dstNode.Key.Equals("AA.AfId"))
-                            {
-                                str.Append("),Composite(" +dstNode.Key+"=" + dstNode.Value + "))");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            break;
+                            str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                    case "AA.AfId":
+                        break;
+                    }
+                case "AA.AfId":
+                    {
+                        StringBuilder str = new StringBuilder("And(Composite(AA.AfId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("AA.AuId"))
                         {
-                            StringBuilder str = new StringBuilder("And(Composite(AA.AfId=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("AA.AuId"))
-                            {
-                                str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            break;
+                            str.Append("),Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                    case "C.CId":
+                        break;
+                    }
+                case "C.CId":
+                    {
+                        StringBuilder str = new StringBuilder("And(Composite(C.CId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
                         {
-                            StringBuilder str = new StringBuilder("And(Composite(C.CId=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("Id"))
-                            {
-                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            break;
+                            str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                    case "F.FId":
+                        break;
+                    }
+                case "F.FId":
+                    {
+                        StringBuilder str = new StringBuilder("And(Composite(F.FId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
                         {
-                            StringBuilder str = new StringBuilder("And(Composite(F.FId=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("Id"))
-                            {
-                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            break;
+                            str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                    case "J.JId":
+                        break;
+                    }
+                case "J.JId":
+                    {
+                        StringBuilder str = new StringBuilder("Composite(J.JId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
                         {
-                            StringBuilder str = new StringBuilder("Composite(J.JId=");
-                            str.Append(sourceNode.Value.ToString());
-                            if (dstNode.Key.Equals("Id"))
-                            {
-                                str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
-                                Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
-                                attr = ((ArrayList)dataJson["histograms"]);
-                            }
-                            break;
+                            str.Append(")," + dstNode.Key + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
                         }
-                }
+                        break;
+                    }
             }
-           
             foreach (Dictionary<string, object> s in attr)
             {
                 foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
                 {
-                    UInt64 idValue;
-                    try
-                    {
-                        idValue = (UInt64)h["value"];
-                    }
-                    catch
-                    {
-                        try
-                        {
-                            idValue = (UInt64)(long)h["value"];
-                        }
-                        catch
-                        {
-                            idValue = (UInt64)(int)h["value"];
-                        }
-                    }
-                    string key = (string)s["attribute"];
-                    
-                    if (key == "RId")
-                        key = "Id";
-                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
+                    return true;
                 }
             }
-            return nodeList;
+            return false;
         }
         public SortedSet<KeyValuePair<string, UInt64>> getNodeWithConditionOr(SortedSet<KeyValuePair<string, UInt64>> hop1Set, KeyValuePair<string, UInt64> dstNode)
         {
@@ -304,7 +281,11 @@ namespace GetOneHopNode
                 str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + ")");
 
             }
-           /// Console.WriteLine(str.ToString());
+            Console.WriteLine(str.ToString());
+            StreamWriter sw = new StreamWriter("I:\\1.txt",true);
+            sw.WriteLine(str.ToString());
+            sw.Flush();
+            sw.Close();
             Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
             attr = ((ArrayList)dataJson["histograms"]);
             foreach (Dictionary<string, object> s in attr)
