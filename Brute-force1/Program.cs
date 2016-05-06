@@ -111,6 +111,7 @@ namespace Brute_force1
             long count = 0;
             long start, end;
             ///step1:获取node1和node2是否存在一跳关系
+            ///方式1：使用and来直接判断
             start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> retval;
             GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
@@ -121,6 +122,21 @@ namespace Brute_force1
             {
                 Console.WriteLine("{0}:存在one-hop", count++);
                 Console.WriteLine("[{0},{1}]", node1, node2);
+            }
+            ///方式2:获取node1的一跳集合，看是否包含node2
+            start = DateTime.Now.Ticks;
+            SortedSet<KeyValuePair<string, UInt64>> hop1set = GetOneHopNode(node1);
+            end = DateTime.Now.Ticks;
+            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop1set.ToList().Capacity);
+            if (!(node1.Key.Equals("AA.AuId") && node2.Key.Equals("AA.AuId")))
+            {
+                ///当两个节点都是AA.AuId时，不可能存在一跳关系
+                if (hop1set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
+                {
+                    //存在one-hop
+                    Console.WriteLine("{0}:存在one-hop", count++);
+                    Console.WriteLine("[{0},{1}]", node1, node2);
+                }
             }
             ///step2:获取两跳关系
 
