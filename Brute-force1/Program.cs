@@ -172,9 +172,8 @@ namespace Brute_force1
                 }
             }
             ///step2:获取两跳关系
-            ///方式1：根据node1的一跳集合使用and来直接判断,可以避免json序列化过长
+            ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断
             start = DateTime.Now.Ticks;
-            SortedSet<KeyValuePair<string, UInt64>> retval;
             GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
             SortedSet<KeyValuePair<string, UInt64>> hop2res = getOneHop.getNodeWithConditionOr(hop1set, node2);
             end = DateTime.Now.Ticks;
@@ -184,6 +183,7 @@ namespace Brute_force1
                 Console.WriteLine("{0}:存在two-hop", count++);
                 Console.WriteLine("[{0},{1},{2}]", node1, tmppair, node2);
             }
+            SortedSet<KeyValuePair<string, UInt64>> hop2set = getOneHop.getNodeWithOr(hop1set);
             /// 方式2：根据node1的一跳集合得到node1的两跳集合，看是否包含node2
             // start = DateTime.Now.Ticks;
             //Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNodeAsync(hop1set);
@@ -202,6 +202,16 @@ namespace Brute_force1
             //end = DateTime.Now.Ticks;
             //Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 100000000, hop2set.ToList().Capacity);
             //step3:获取三跳关系
+            ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断
+            start = DateTime.Now.Ticks;
+            SortedSet<KeyValuePair<string, UInt64>> hop3res = getOneHop.getNodeWithConditionOr(hop1set, node2);
+            end = DateTime.Now.Ticks;
+            Console.WriteLine("时间{0}", (end - start) / 10000000);
+            foreach (KeyValuePair<string, UInt64> tmppair in hop3res)
+            {
+                Console.WriteLine("{0}:存在three-hop", count++);
+                Console.WriteLine("[{0},{1},{2}]", node1, tmppair, node2);
+            }
             //start = DateTime.Now.Ticks;
             //Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop3dic = GetTwoHopNode(hop2set);
             //SortedSet<KeyValuePair<string, UInt64>> hop3set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());

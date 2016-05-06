@@ -304,7 +304,75 @@ namespace GetOneHopNode
                 str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + ")");
 
             }
-            Console.WriteLine(str.ToString());
+           /// Console.WriteLine(str.ToString());
+            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+            attr = ((ArrayList)dataJson["histograms"]);
+            foreach (Dictionary<string, object> s in attr)
+            {
+                foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                {
+                    UInt64 idValue;
+                    try
+                    {
+                        idValue = (UInt64)h["value"];
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            idValue = (UInt64)(long)h["value"];
+                        }
+                        catch
+                        {
+                            idValue = (UInt64)(int)h["value"];
+                        }
+                    }
+                    string key = (string)s["attribute"];
+
+                    if (key == "RId")
+                        key = "Id";
+                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
+                }
+            }
+            return nodeList;
+        }
+        public SortedSet<KeyValuePair<string, UInt64>> getNodeWithOr(SortedSet<KeyValuePair<string, UInt64>> hop1Set)
+        {
+            magApi mag = new magApi();
+            ArrayList attr = new ArrayList();
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
+            StringBuilder str = new StringBuilder("");
+            int count = hop1Set.Count;
+            KeyValuePair<string, UInt64> sourceNode;
+            for (int i = 0; i < count - 1; i++)
+            {
+                sourceNode = hop1Set.ElementAt(i);
+                if (sourceNode.Key.Equals("Id"))
+                {
+                    str.Append("Or(Id" + "=" + sourceNode.Value + ",");
+                }
+                else
+                {
+                    str.Append("Or(Composite(" + sourceNode.Key + "=" + sourceNode.Value + "),");
+
+                }
+            }
+            sourceNode = hop1Set.ElementAt(count - 1);
+            if (sourceNode.Key.Equals("Id"))
+            {
+                str.Append("Id" + "=" + sourceNode.Value);
+            }
+            else
+            {
+                str.Append("Composite(" + sourceNode.Key + "=" + sourceNode.Value + ")");
+
+            }
+            for (int i = 0; i < count - 1; i++)
+            {
+                str.Append(")");
+            }
+            
+           /// Console.WriteLine(str.ToString());
             Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
             attr = ((ArrayList)dataJson["histograms"]);
             foreach (Dictionary<string, object> s in attr)
