@@ -89,7 +89,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\magApiCs\magApiCs\magApiCs.csproj">
+    <ProjectReference Include="..\magApiCs\magApiCs.csproj">
       <Project>{a89cb32b-663d-425e-8364-81997b0db435}</Project>
       <Name>magApiCs</Name>
     </ProjectReference>

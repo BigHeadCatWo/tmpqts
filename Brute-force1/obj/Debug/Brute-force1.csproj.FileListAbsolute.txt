@@ -1,0 +1,10 @@
+I:\github\tmpqts\Brute-force1\bin\Debug\Brute-force1.exe.config
+I:\github\tmpqts\Brute-force1\bin\Debug\Brute-force1.exe
+I:\github\tmpqts\Brute-force1\bin\Debug\Brute-force1.pdb
+I:\github\tmpqts\Brute-force1\bin\Debug\GetOneHopNode.dll
+I:\github\tmpqts\Brute-force1\bin\Debug\magApiCs.dll
+I:\github\tmpqts\Brute-force1\bin\Debug\GetOneHopNode.pdb
+I:\github\tmpqts\Brute-force1\bin\Debug\magApiCs.pdb
+I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.csprojResolveAssemblyReference.cache
+I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.exe
+I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.pdb

@@ -4,68 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GetOneHopNode;
+using System.Collections;
+
 namespace Brute_force1
 {
+
     class Program
     {
         static void Main(string[] args)
         {
-            KeyValuePair<string, UInt64> node1 = new KeyValuePair<string, UInt64>("Id", 1970381522);
-            KeyValuePair<string, UInt64> node2 = new KeyValuePair<string, UInt64>("Id", 2162351023);
-
+            KeyValuePair<string, UInt64> node1;
+            KeyValuePair<string, UInt64> node2;
+            //    ///一跳测试
+            //    ///id--id
+            //node1 = new KeyValuePair<string, UInt64>("Id", 2140251882);
+            //node2 = new KeyValuePair<string, UInt64>("Id", 2143554828);
+            //Solution.solve(node1, node2);
+            /////id--AA.AuId
+            //node1 = new KeyValuePair<string, UInt64>("Id", 2140251882);
+            //node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2145115012);
+            //Solution.solve(node1, node2);
+            /////AA.AuId--id
+            //node1 = new KeyValuePair<string, UInt64>("AA.AuId", 2145115012);
+            //node2 = new KeyValuePair<string, UInt64>("Id", 2140251882);
+            //Solution.solve(node1, node2);
+            /////AA.AuId--AA.AuId
+            //node1 = new KeyValuePair<string, UInt64>("AA.AuId", 2145115012);
+            //node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2145115015);
+            //Solution.solve(node1, node2);
+            ///id to id  1970381522  to 2162351023  大家算出来多少？ 36
+            ///[id, AA.AuId]=[2273736245,2094437628]有多少对啊？ 41  19
+            ///大家看看这组数据有多少边，我这里出来2584条，感觉有点虚：2126125555，2153635508
+            ///两跳测试
+            ///id--id
+            node1 = new KeyValuePair<string, UInt64>("Id", 1970381522);
+            node2 = new KeyValuePair<string, UInt64>("Id", 2162351023);
             Solution.solve(node1, node2);
+
+            Console.ReadLine();
         }
     }
     class Solution
     {
-        /// <summary>
-        /// pair比较函数，小于号
-        /// </summary>
-        /// <param name="o1">操作数1</param>
-        /// <param name="o2">操作数2</param>
-        /// <returns></returns>
-        public static bool pairLess(KeyValuePair<string, UInt64> o1, KeyValuePair<string, UInt64> o2)
+        private class SortedSetComparer : IComparer<KeyValuePair<string, UInt64>>
         {
-            if (o1.Key != o2.Key)
+            public int Compare(KeyValuePair<string, UInt64> x, KeyValuePair<string, UInt64> y)
             {
-                int i = o1.Key.CompareTo(o2.Key);
-                if (i == -1)
-                    return true;
+                if (x.Key != y.Key)
+                    return x.Key.CompareTo(y.Key);
                 else
-                    return false;
+                    return x.Value.CompareTo(y.Value);
             }
-            else
-                return o1.Value < o2.Value;
-        }
-        /// <summary>
-        /// pair比较函数，大于号
-        /// </summary>
-        /// <param name="o1">操作数1</param>
-        /// <param name="o2">操作数2</param>
-        /// <returns></returns>
-        public static bool pairLarge(KeyValuePair<string, UInt64> o1, KeyValuePair<string, UInt64> o2)
-        {
-            if (o1.Key != o2.Key)
-            {
-                int i = o1.Key.CompareTo(o2.Key);
-                if (i == 1)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return o1.Value > o2.Value;
         }
 
-        /// <summary>
-        /// 通过节点id查询节点的一跳节点
-        /// </summary>
-        /// <param name="nodeid">需要查询的id值</param>
-        /// <returns>返回id的一跳节点集合，该集合已经排序</returns>
+     
         public static SortedSet<KeyValuePair<string, UInt64>> GetOneHopNode(KeyValuePair<string, UInt64> nodeid)
         {
             //通过id获取one-hop节点集合
-            SortedSet<KeyValuePair<string, UInt64>> retval = new SortedSet<KeyValuePair<string, UInt64>>();
+            SortedSet<KeyValuePair<string, UInt64>> retval;
             /*
              * 这里是获取id 的过程，基本上需要两步，第一步通过id获取该id的属性，
              * 第二步通过属性获取有此属性的一跳节点id集合
@@ -78,70 +74,118 @@ namespace Brute_force1
             retval = getOneHop.getNode(nodeid);
             return retval;
         }
+        public static Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> GetTwoHopNode(SortedSet<KeyValuePair<string, UInt64>> hop1set)
+        {
+            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> dic = new Dictionary<KeyValuePair<string, ulong>, SortedSet<KeyValuePair<string, ulong>>>();
+            //通过id获取one-hop节点集合
+            long start, end;
+            foreach (KeyValuePair<string, UInt64> nodeid in hop1set)
+            {
+                ///Console.WriteLine("find:{0}:{1}", nodeid.Key, nodeid);
+                start = DateTime.Now.Ticks;
+                GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+                SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(nodeid);
+                end = DateTime.Now.Ticks;
+                /// Console.WriteLine("{0}:获取hop1set花费时间", (end - start) / 1000);
+                dic.Add(nodeid, tmp);
+            }
+            return dic;
+        }
+        //public static SortedSet<KeyValuePair<string, UInt64>> GetTwoHopNode2(SortedSet<KeyValuePair<string, UInt64>> hop1set, KeyValuePair<string, UInt64>dst)
+        //{
+        //    SortedSet<KeyValuePair<string, UInt64>> res = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
+        //    GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+        //    foreach (KeyValuePair<string, UInt64> node in hop1set)
+        //    {
+        //        SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(node,dst);
+        //        res.UnionWith(tmp);
+        //    }
+        //    return res;
+        //}
         /// <summary>
-        /// 计算三跳以内的路径，这里没有设计返回值，因为不知道具体需要如何返回
         /// </summary>
         /// <param name="node1">节点1</param>
         /// <param name="node2">节点2</param>
         public static void solve(KeyValuePair<string, UInt64> node1, KeyValuePair<string, UInt64> node2)
         {
-            SortedSet<KeyValuePair<string, UInt64>> node1set = GetOneHopNode(node1);
-            SortedSet<KeyValuePair<string, UInt64>> node2set = GetOneHopNode(node2);
-            if (node1set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
+            long count = 0;
+            long start, end;
+            ///step1:获取node1和node2是否存在一跳关系
+            ///方式1：使用and来直接判断,可以避免json序列化过长
+            //start = DateTime.Now.Ticks;
+            //SortedSet<KeyValuePair<string, UInt64>> retval;
+            //GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+            //SortedSet<KeyValuePair<string, UInt64>> tmpSet = new SortedSet<KeyValuePair<string, UInt64>>();
+            //tmpSet.Add(node1);
+            //SortedSet<KeyValuePair<string, UInt64>> hop1res=getOneHop.getNodeWithCondition(tmpSet, node2);
+            //end = DateTime.Now.Ticks;
+            //Console.WriteLine("时间{0}", (end - start) / 1000000);
+            //if (hop1res.Count!=0)
+            //{
+            //    Console.WriteLine("{0}:存在one-hop", count++);
+            //    Console.WriteLine("[{0},{1}]", node1, node2);
+            //}
+            ///方式2:获取node1的一跳集合，看是否包含node2
+            start = DateTime.Now.Ticks;
+            SortedSet<KeyValuePair<string, UInt64>> hop1set = GetOneHopNode(node1);
+            end = DateTime.Now.Ticks;
+            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop1set.ToList().Capacity);
+            if (!(node1.Key.Equals("AA.AuId") && node2.Key.Equals("AA.AuId")))
             {
-                //存在one-hop
-                Console.WriteLine("[{0},{1}]", node1, node2);
-                //移除头尾节点，防止回环
-                node1set.Remove(node2);
-                node2set.Remove(node1);
-            }
-            else
-            {
-                //没有one-hop返回
-            }
-            int i = 0, j = 0;
-            while (i < node1set.Count<KeyValuePair<string, UInt64>>() && j < node2set.Count<KeyValuePair<string, UInt64>>())
-            {
-                if (pairLess(node1set.ElementAt<KeyValuePair<string, UInt64>>(i), node1set.ElementAt<KeyValuePair<string, UInt64>>(j)))
+                ///当两个节点都是AA.AuId时，不可能存在一跳关系
+                if (hop1set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
                 {
-                    i++;
-                }
-                else if (pairLarge(node1set.ElementAt<KeyValuePair<string, UInt64>>(i), node1set.ElementAt<KeyValuePair<string, UInt64>>(j)))
-                {
-                    j++;
-                }
-                else
-                {
-                    //有相同
-                    //输出two-hop路径，这里可以进行json封装返回
-                    Console.WriteLine("[{0},{1},{2}]", node1, node1set.ElementAt<KeyValuePair<string, UInt64>>(i), node2);
-                    i++;
-                    j++;
+                    //存在one-hop
+                    Console.WriteLine("{0}:存在one-hop", count++);
+                    Console.WriteLine("[{0},{1}]", node1, node2);
                 }
             }
-            //这里可以区分一下哪一个的数量更小，用来减少查询的次数
-            foreach (KeyValuePair<string, UInt64> nodeid in node1set)
+            ///step2:获取两跳关系
+            ///方式1：根据node1的一跳集合使用and来直接判断,可以避免json序列化过长
+            //start = DateTime.Now.Ticks;
+            //SortedSet<KeyValuePair<string, UInt64>> retval;
+            //GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+            //SortedSet<KeyValuePair<string, UInt64>> hop2res = getOneHop.getNodeWithCondition(hop1set, node2);
+            //end = DateTime.Now.Ticks;
+            //Console.WriteLine("时间{0}", (end - start) / 1000000);
+            //foreach (KeyValuePair<string, UInt64> tmppair in hop2res)
+            //{
+            //    Console.WriteLine("{0}:存在two-hop", count++);
+            //    Console.WriteLine("[{0},{1},{2}]", node1, tmppair, node2);
+            //}
+            /// 方式2：根据node1的一跳集合得到node1的两跳集合，看是否包含node2
+             start = DateTime.Now.Ticks;
+            Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNode(hop1set);
+            SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
+            foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
             {
-                SortedSet<KeyValuePair<string, UInt64>> nodeidset = GetOneHopNode(nodeid);
-                i = 0;
-                j = 0;
-                while (i < nodeidset.Count<KeyValuePair<string, UInt64>>() && j < node2set.Count<KeyValuePair<string, UInt64>>())
+                foreach (KeyValuePair<string, UInt64> tmppair in kv.Value)
+                    hop2set.Add(tmppair);
+                if (kv.Value.Contains(node2))
                 {
-                    if (pairLess(nodeidset.ElementAt<KeyValuePair<string, UInt64>>(i), node2set.ElementAt<KeyValuePair<string, UInt64>>(j)))
-                    {
-                        i++;
-                    }
-                    else if (pairLarge(nodeidset.ElementAt<KeyValuePair<string, UInt64>>(i), node2set.ElementAt<KeyValuePair<string, UInt64>>(j)))
-                    {
-                        j++;
-                    }
-                    else
-                    {
-                        ///输出三跳的路径
-                        Console.WriteLine("[{0},{1},{2},{3}]", node1, nodeid, nodeidset.ElementAt<KeyValuePair<string, UInt64>>(i), node2);
-                    }
+                    Console.WriteLine("{0}:存在two-hop", count++);
+                    Console.WriteLine("[{0},{1},{2}]", node1, kv.Key, node2);
                 }
             }
+
+            end = DateTime.Now.Ticks;
+            Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop2set.ToList().Capacity);
+            //step3:获取三跳关系
+            //start = DateTime.Now.Ticks;
+            //Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop3dic = GetTwoHopNode(hop2set);
+            //SortedSet<KeyValuePair<string, UInt64>> hop3set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
+            //foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop3dic)
+            //{
+            //    hop3set.Union(kv.Value);
+            //    if (kv.Value.Contains(node2))
+            //    {
+            //        Console.WriteLine("{0}:存在three-hop", count++);
+            //        Console.WriteLine("[{0},{1},{2}]", node1, kv.Key, node2);
+            //    }
+
+            //}
+            //end = DateTime.Now.Ticks;
+            //Console.WriteLine("时间{0}:set大小：{1}", (end - start) / 1000000, hop3set.ToList().Capacity);
         }
     }
 }
