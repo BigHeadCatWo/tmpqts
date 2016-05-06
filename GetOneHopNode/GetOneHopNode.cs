@@ -133,5 +133,48 @@ namespace GetOneHopNode
             }
             return nodeList;
         }
+        public bool checkOneHop(KeyValuePair<string, UInt64> sourceNode, KeyValuePair<string, UInt64> dstNode)
+        {
+            magApi mag = new magApi();
+            ArrayList attr = new ArrayList();
+            Console.WriteLine("[{0}:{1}   {2}:{3}]", sourceNode.Key, sourceNode.Value, dstNode.Key,dstNode.Value);
+            switch (sourceNode.Key)
+            {
+                case "Id":
+                    {
+                        StringBuilder str = new StringBuilder("And(Id=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
+                        {
+                            str.Append(",RId" + "=" + dstNode.Value + ")");
+                        }
+                        else
+                        {
+                            str.Append(",Composite(" + dstNode.Key + "=" + dstNode.Value + "))");
+                        }
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                        attr = ((ArrayList)dataJson["histograms"]);
+                        break;
+                    }
+                case "AA.AuId":
+                    {
+                        StringBuilder str = new StringBuilder("And(Composite(AA.AuId=");
+                        str.Append(sourceNode.Value.ToString());
+                        if (dstNode.Key.Equals("Id"))
+                        {
+                            str.Append("),Id" + "=" + dstNode.Value + ")");
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
+                            attr = ((ArrayList)dataJson["histograms"]);
+                        }
+                        break;
+                    }
+            }
+            //attr中是否有结果
+            foreach (Dictionary<string, object> s in attr)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
