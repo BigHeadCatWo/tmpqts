@@ -39,9 +39,13 @@ namespace Brute_force1
             ///两跳测试
             ///id--id
             node1 = new KeyValuePair<string, UInt64>("Id", 2094437628);
-            node2 = new KeyValuePair<string, UInt64>("Id", 2088397685);
+            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2273736245);
             Solution.solve(node1, node2);
-
+            ///三跳测试
+            ///id--id
+            //node1 = new KeyValuePair<string, UInt64>("Id", 2094437628);
+            //node2 = new KeyValuePair<string, UInt64>("Id", 2088397685);
+            //Solution.solve(node1, node2);
             Console.ReadLine();
         }
     }
@@ -57,8 +61,11 @@ namespace Brute_force1
                     return x.Value.CompareTo(y.Value);
             }
         }
+        public static int pairCompare(KeyValuePair<string, UInt64> o1, KeyValuePair<string, UInt64> o2)
+        {
+                return (int)(o1.Value - o2.Value);
+        }
 
-     
         public static SortedSet<KeyValuePair<string, UInt64>> GetOneHopNode(KeyValuePair<string, UInt64> nodeid)
         {
             //通过id获取one-hop节点集合
@@ -110,11 +117,14 @@ namespace Brute_force1
             foreach (KeyValuePair<string, UInt64> nodeid in hop1set)
             {
                 Task t=Task.Run(()=>{
-                    Console.WriteLine("tofind:{0}", nodeid);
-                    start = DateTime.Now.Ticks;
+                    //Console.WriteLine("tofind:{0}", nodeid);
+                    //start = DateTime.Now.Ticks;
                     SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(nodeid);
-                    end = DateTime.Now.Ticks;
-                    Console.WriteLine("{0}花费时间:{1},set大小:{2}", nodeid,(end - start) / 1000000, tmp.Count());
+                    //end = DateTime.Now.Ticks;
+                    //Console.WriteLine("{0}花费时间:{1},set大小:{2}", nodeid,(end - start) / 10000000, tmp.Count());
+                    //if(nodeid.Key== "AA.AuId")
+                    //    foreach (KeyValuePair<string, UInt64> tmpnode in tmp)
+                    //        Console.WriteLine(tmpnode);
                     dic.Add(nodeid, tmp); });
                 taskList.Add(t);
             }
@@ -130,19 +140,19 @@ namespace Brute_force1
             Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop3res = GetTwoHopNodeAsync(hop2set);
             
         }
-        public static void testGetThreeHopNodeAsync()
-        {
-            KeyValuePair<string, UInt64> node2 = new KeyValuePair<string, ulong>("AA.AuId", 2273736245);
-            SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());     
-            hop2set.Add(new KeyValuePair<string, ulong>("Id", 2094437628));
-            hop2set.Add(new KeyValuePair<string, ulong>("Id", 2088397685));
-            hop2set.Add(new KeyValuePair<string, ulong>("Id", 2054283902));
-            SortedSet<KeyValuePair<string, UInt64>> hop3res = GetThreeHopNodeAsync(hop2set, node2);
-            foreach (KeyValuePair<string, UInt64> lastnode in hop3res)
-            {
-                Console.WriteLine(lastnode);
-            }
-        }
+        //public static void testGetThreeHopNodeAsync()
+        //{
+        //    KeyValuePair<string, UInt64> node2 = new KeyValuePair<string, ulong>("AA.AuId", 2273736245);
+        //    SortedSet<KeyValuePair<string, UInt64>> hop2set = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());     
+        //    hop2set.Add(new KeyValuePair<string, ulong>("Id", 2094437628));
+        //    hop2set.Add(new KeyValuePair<string, ulong>("Id", 2088397685));
+        //    hop2set.Add(new KeyValuePair<string, ulong>("Id", 2054283902));
+        //    SortedSet<KeyValuePair<string, UInt64>> hop3res = GetThreeHopNodeAsync(hop2set, node2);
+        //    foreach (KeyValuePair<string, UInt64> lastnode in hop3res)
+        //    {
+        //        Console.WriteLine(lastnode);
+        //    }
+        //}
         public static SortedSet<KeyValuePair<string, UInt64>> GetThreeHopNodeAsync(SortedSet<KeyValuePair<string, UInt64>> hop2set, KeyValuePair<string, UInt64>dstNode)
         {
             SortedSet<KeyValuePair<string, UInt64>> res = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
@@ -181,17 +191,7 @@ namespace Brute_force1
             Task.WaitAll(taskList.ToArray());
             return res;
         }
-        //public static SortedSet<KeyValuePair<string, UInt64>> GetTwoHopNode2(SortedSet<KeyValuePair<string, UInt64>> hop1set, KeyValuePair<string, UInt64>dst)
-        //{
-        //    SortedSet<KeyValuePair<string, UInt64>> res = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
-        //    GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
-        //    foreach (KeyValuePair<string, UInt64> node in hop1set)
-        //    {
-        //        SortedSet<KeyValuePair<string, UInt64>> tmp = getOneHop.getNode(node,dst);
-        //        res.UnionWith(tmp);
-        //    }
-        //    return res;
-        //}
+       
         /// <summary>
         /// </summary>
         /// <param name="node1">节点1</param>
@@ -201,56 +201,31 @@ namespace Brute_force1
         {
             long count = 0;
             long start, end,start_;
-            int chushu = 100000000;
+            int chushu = 10000000;
             start_ = DateTime.Now.Ticks;
+            GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
+            SortedSet<KeyValuePair<string, UInt64>> lastset = getOneHop.getLastNode(node2);
+            Console.WriteLine("lastset大小：{0}", lastset.Count);
+            //foreach(KeyValuePair<string, UInt64> tmp in lastset)
+            //    Console.WriteLine(tmp);
             ///step1:获取node1和node2是否存在一跳关系
-            ///方式1：使用and来直接判断,可以避免json序列化过长
-            //start = DateTime.Now.Ticks;
-            //SortedSet<KeyValuePair<string, UInt64>> retval;
-            //GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
-            //SortedSet<KeyValuePair<string, UInt64>> tmpSet = new SortedSet<KeyValuePair<string, UInt64>>();
-            //tmpSet.Add(node1);
-            //SortedSet<KeyValuePair<string, UInt64>> hop1res=getOneHop.getNodeWithCondition(tmpSet, node2);
-            //end = DateTime.Now.Ticks;
-            //Console.WriteLine("时间{0}", (end - start) / 1000000);
-            //if (hop1res.Count!=0)
-            //{
-            //    Console.WriteLine("{0}:存在one-hop", count++);
-            //    Console.WriteLine("[{0},{1}]", node1, node2);
-            //}
-            ///方式2:获取node1的一跳集合，看是否包含node2
             start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> hop1set = GetOneHopNode(node1);
+            Console.WriteLine("hop1set大小：{0}", hop1set.Count);
             end = DateTime.Now.Ticks;
-            Console.WriteLine("一跳查询花费{0}:set大小：{1}", (end - start) / chushu, hop1set.ToList().Capacity);
-            if (!(node1.Key=="AA.AuId" && node2.Key=="AA.AuId"))
+            if (lastset.Contains<KeyValuePair<string, UInt64>>(node1) == true)
             {
-                ///当两个节点都是AA.AuId时，不可能存在一跳关系
-                if (hop1set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
-                {
-                    //存在one-hop
-                    Console.WriteLine("{0}:存在one-hop", count++);
-                    Console.WriteLine("[{0},{1}]", node1, node2);
-                    StreamWriter sw = new StreamWriter("I:\\1.txt", true);
-                    sw.WriteLine("[{0},{1}]", node1, node2);
-                    sw.Flush();
-                    sw.Close();
-                }
+                //存在one-hop
+                Console.WriteLine("{0}:存在one-hop", count++);
+                Console.WriteLine("[{0},{1}]", node1, node2);
+                StreamWriter sw = new StreamWriter("I:\\1.txt", true);
+                sw.WriteLine("[{0},{1}]", node1, node2);
+                sw.Flush();
+                sw.Close();
             }
             end = DateTime.Now.Ticks;
             Console.WriteLine("一跳全部花费{0}", (end - start) / chushu);
             ///step2:获取两跳关系
-            ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断，有问题
-            //start = DateTime.Now.Ticks;
-            //GetOneHopNodeClass getOneHop = new GetOneHopNodeClass();
-            //SortedSet<KeyValuePair<string, UInt64>> hop2set = getOneHop.getNodeWithOr(hop1set);
-            //end = DateTime.Now.Ticks;
-            //Console.WriteLine("时间{0}", (end - start) / 10000000);
-            //if (hop2set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
-            //{
-            //    Console.WriteLine("有两跳");
-
-            //}
             /// 方式2：根据node1的一跳集合得到node1的两跳集合，看是否包含node2
             start = DateTime.Now.Ticks;
             Dictionary<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> hop2dic = GetTwoHopNodeAsync(hop1set);
@@ -270,29 +245,39 @@ namespace Brute_force1
             end = DateTime.Now.Ticks;
             Console.WriteLine("二跳全部花费{0}:set大小：{1}", (end - start) / chushu, hop2set.ToList().Capacity);
             //step3:获取三跳关系
-            ///方式1：根据node1的一跳集合用or进行聚合，用and来直接判断
+            //方式1：从hop2set进行搜索，看是否包含node2
             //start = DateTime.Now.Ticks;
-            //SortedSet<KeyValuePair<string, UInt64>> hop3set = getOneHop.getNodeWithOr(hop2set);
+            //SortedSet<KeyValuePair<string, UInt64>> hop3res = GetThreeHopNodeAsync(hop2set, node2);
             //end = DateTime.Now.Ticks;
-            //Console.WriteLine("时间{0}", (end - start) / 10000000);
-            //if (hop3set.Contains<KeyValuePair<string, UInt64>>(node2) == true)
+            //Console.WriteLine("三跳查询花费{0}", (end - start) / chushu);
+            //foreach (KeyValuePair<string, UInt64> lastnode in hop3res)
             //{
-            //    Console.WriteLine("有三跳");
+            //    foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
+            //    {
+            //        if (kv.Value.Contains(lastnode))
+            //        {
+            //            Console.WriteLine("{0}:存在three-hop", count++);
+            //            Console.WriteLine("[{0},{1},{2},{3}]", node1, kv.Key, lastnode, node2);
+            //        }
+            //    }
             //}
+            //end = DateTime.Now.Ticks;
+            //Console.WriteLine("三跳全部花费{0}", (end - start) / chushu);
+            ///方式2：查找hop2set和lastset的交集
             start = DateTime.Now.Ticks;
-            SortedSet<KeyValuePair<string, UInt64>> hop3res = GetThreeHopNodeAsync(hop2set,node2);
-            end = DateTime.Now.Ticks;
-            Console.WriteLine("三跳查询花费{0}", (end - start) / chushu);
-            foreach (KeyValuePair<string, UInt64> lastnode in hop3res)
+            int i = 0, j = 0;
+            foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
             {
-                foreach (KeyValuePair<KeyValuePair<string, UInt64>, SortedSet<KeyValuePair<string, UInt64>>> kv in hop2dic)
+                foreach (KeyValuePair<string, UInt64>lastNode in lastset)
                 {
-                    if (kv.Value.Contains(lastnode))
+                   
+                    if (kv.Value.Contains(lastNode))
                     {
                         Console.WriteLine("{0}:存在three-hop", count++);
-                        Console.WriteLine("[{0},{1},{2},{3}]", node1, kv.Key, lastnode, node2);
+                        Console.WriteLine("[{0},{1},{2},{3}]", node1, kv.Key, lastNode, node2);
                     }
                 }
+               
             }
             end = DateTime.Now.Ticks;
             Console.WriteLine("三跳全部花费{0}", (end - start) / chushu);
