@@ -46,18 +46,49 @@ namespace GetOneHopNode
         /// </summary>
         /// <param name="sourceNode"></param>
         /// <returns></returns>
-       
-        public SortedSet<KeyValuePair<string, UInt64>> getNode(KeyValuePair<string, UInt64> sourceNode)
+        public SortedSet<KeyValuePair<string, UInt64>> getLastNode(KeyValuePair<string, UInt64> sourceNode)
         {
-            ArrayList attr =new ArrayList();
+            ulong MaxCount = 1000;
+            ArrayList attr = new ArrayList();
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
             switch (sourceNode.Key)
             {
                 case "Id":
                     {
                         StringBuilder str = new StringBuilder("Id=");
                         str.Append(sourceNode.Value.ToString());
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "F.FId,AA.AuId,RId,J.JId,C.CId");
-                        attr = ((ArrayList)dataJson["entities"]);
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
+                        attr = ((ArrayList)dataJson["histograms"]);
+                        foreach (Dictionary<string, object> s in attr)
+                        {
+                            foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                            {
+                                UInt64 idValue;
+                                try
+                                {
+                                    idValue = (UInt64)h["value"];
+                                }
+                                catch
+                                {
+                                    try
+                                    {
+                                        idValue = (UInt64)(long)h["value"];
+                                    }
+                                    catch
+                                    {
+                                        idValue = (UInt64)(int)h["value"];
+                                    }
+                                }
+                                string key = (string)s["attribute"];
+                                if (key == "RId")
+                                    key = "Id";
+                                nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
+                            }
+                        }
+                        str = new StringBuilder("RId=");
+                        str.Append(sourceNode.Value.ToString());
+                        dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id");
+                        attr = ((ArrayList)dataJson["histograms"]);
                         break;
                     }
                 case "AA.AuId":
@@ -65,8 +96,64 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(AA.AuId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AfId");
+                        attr = ((ArrayList)dataJson["histograms"]);
+                        break;
+                    }
+            }
+            foreach (Dictionary<string, object> s in attr)
+            {
+                foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                {
+                    UInt64 idValue;
+                    try
+                    {
+                        idValue = (UInt64)h["value"];
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            idValue = (UInt64)(long)h["value"];
+                        }
+                        catch
+                        {
+                            idValue = (UInt64)(int)h["value"];
+                        }
+                    }
+                    string key = (string)s["attribute"];
+                    if (key == "RId")
+                        key = "Id";
+                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
+                }
+            }
+            return nodeList;
+        }
+        public SortedSet<KeyValuePair<string, UInt64>> getNode(KeyValuePair<string, UInt64> sourceNode)
+        {
+            ulong maxCount = 1000;
+            ArrayList attr =new ArrayList();
+            switch (sourceNode.Key)
+            {
+                case "Id":
+                    {
+                        StringBuilder str = new StringBuilder("Id=");
+                        str.Append(sourceNode.Value.ToString());
+
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "F.FId,AA.AuId,RId,J.JId,C.CId");
+                        attr = ((ArrayList)dataJson["entities"]);
+
+                        break;
+                    }
+                case "AA.AuId":
+                    {
+                        StringBuilder str = new StringBuilder("Composite(AA.AuId=");
+                        str.Append(sourceNode.Value.ToString());
+                        str.Append(')');
+
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id,AA.AfId");
                         attr = ((ArrayList)dataJson["entities"]);
+
                         break;
                     }
                 case "AA.AfId":
@@ -74,8 +161,10 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(AA.AfId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
+
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "AA.AuId");
                         attr = ((ArrayList)dataJson["entities"]);
+
                         break;
                     }
                 case "C.CId":
@@ -83,8 +172,10 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(C.CId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
+
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["entities"]);
+
                         break;
                     }
                 case "F.FId":
@@ -92,8 +183,10 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(F.FId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
+
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000, attributes: "Id");
                         attr = ((ArrayList)dataJson["entities"]);
+
                         break;
                     }
                 case "J.JId":
@@ -101,12 +194,15 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(J.JId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
+
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["entities"]);
+
                         break;
                     }
             }
             //构造1-hop node列表
+
             Console.WriteLine("hehe");
             long start = DateTime.Now.Ticks;
             SortedSet<KeyValuePair<string, UInt64>> nodeList = convertJsonDatoToList(attr);
@@ -117,6 +213,7 @@ namespace GetOneHopNode
         private SortedSet<KeyValuePair<string, UInt64>> convertJsonDatoToList(ArrayList attr)
         {
             SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
+
             foreach (Dictionary<string, object> s in attr)
             {
                 foreach (KeyValuePair<string, object> h in s)
@@ -155,6 +252,7 @@ namespace GetOneHopNode
                     }
                 }
             }
+
             return nodeList;
         }
 

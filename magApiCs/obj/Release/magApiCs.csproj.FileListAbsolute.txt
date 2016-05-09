@@ -2,3 +2,4 @@ I:\github\tmpqts\magApiCs\bin\Release\magApiCs.dll
 I:\github\tmpqts\magApiCs\bin\Release\magApiCs.pdb
 I:\github\tmpqts\magApiCs\obj\Release\magApiCs.dll
 I:\github\tmpqts\magApiCs\obj\Release\magApiCs.pdb
+I:\github\tmpqts\magApiCs\obj\Release\magApiCs.csprojResolveAssemblyReference.cache
