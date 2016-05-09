@@ -32,7 +32,7 @@ namespace magApiCs
             queryString["attributes"] = _attributes;
             queryString["count"] = _count.ToString();
             queryString["offset"] = _offset.ToString();
-            var uri = "https://oxfordhk.azure-api.net/academic/v1.0/calchistogram?" + queryString;
+            var uri = "https://oxfordhk.azure-api.net/academic/v1.0/evaluate?" + queryString;
             response = client.GetAsync(uri);
         }
         /// <summary>
