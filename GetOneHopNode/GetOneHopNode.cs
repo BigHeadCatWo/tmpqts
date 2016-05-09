@@ -58,37 +58,49 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Id=");
                         str.Append(sourceNode.Value.ToString());
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
-                        attr = ((ArrayList)dataJson["histograms"]);
+                        attr = ((ArrayList)dataJson["entities"]);
                         foreach (Dictionary<string, object> s in attr)
                         {
-                            foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                            foreach (KeyValuePair<string, object> h in s)
                             {
-                                UInt64 idValue;
-                                try
+                                if (h.Key == "logprob")
+                                    continue;
+                                if (h.Key == "Id")
                                 {
-                                    idValue = (UInt64)h["value"];
+                                    nodeList.Add(new KeyValuePair<string, ulong>(h.Key, Convert.ToUInt64(h.Value)));
+                                    continue;
                                 }
-                                catch
+                                if (h.Key == "RId" || h.Key == "Id")
                                 {
-                                    try
+                                    foreach (object t in (ArrayList)h.Value)
                                     {
-                                        idValue = (UInt64)(long)h["value"];
+                                        string tkey = "Id";
+                                        nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t)));
                                     }
-                                    catch
+                                    continue;
+                                }
+                                if (h.Key == "J")
+                                {
+                                    foreach (KeyValuePair<string, object> t in (Dictionary<string, object>)h.Value)
                                     {
-                                        idValue = (UInt64)(int)h["value"];
+                                        nodeList.Add(new KeyValuePair<string, ulong>("J." + t.Key, Convert.ToUInt64(t.Value)));
+                                    }
+                                    continue;
+                                }
+                                foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
+                                {
+                                    foreach (KeyValuePair<string, object> t in h1)
+                                    {
+                                        string tkey = h.Key + '.' + t.Key;
+                                        nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t.Value)));
                                     }
                                 }
-                                string key = (string)s["attribute"];
-                                if (key == "RId")
-                                    key = "Id";
-                                nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
                             }
                         }
                         str = new StringBuilder("RId=");
                         str.Append(sourceNode.Value.ToString());
                         dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id");
-                        attr = ((ArrayList)dataJson["histograms"]);
+                        attr = ((ArrayList)dataJson["entities"]);
                         break;
                     }
                 case "AA.AuId":
@@ -97,34 +109,46 @@ namespace GetOneHopNode
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AfId");
-                        attr = ((ArrayList)dataJson["histograms"]);
+                        attr = ((ArrayList)dataJson["entities"]);
                         break;
                     }
             }
             foreach (Dictionary<string, object> s in attr)
             {
-                foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
+                foreach (KeyValuePair<string, object> h in s)
                 {
-                    UInt64 idValue;
-                    try
+                    if (h.Key == "logprob")
+                        continue;
+                    if (h.Key == "Id")
                     {
-                        idValue = (UInt64)h["value"];
+                        nodeList.Add(new KeyValuePair<string, ulong>(h.Key, Convert.ToUInt64(h.Value)));
+                        continue;
                     }
-                    catch
+                    if (h.Key == "RId" || h.Key == "Id")
                     {
-                        try
+                        foreach (object t in (ArrayList)h.Value)
                         {
-                            idValue = (UInt64)(long)h["value"];
+                            string tkey = "Id";
+                            nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t)));
                         }
-                        catch
+                        continue;
+                    }
+                    if (h.Key == "J")
+                    {
+                        foreach (KeyValuePair<string, object> t in (Dictionary<string, object>)h.Value)
                         {
-                            idValue = (UInt64)(int)h["value"];
+                            nodeList.Add(new KeyValuePair<string, ulong>("J." + t.Key, Convert.ToUInt64(t.Value)));
+                        }
+                        continue;
+                    }
+                    foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
+                    {
+                        foreach (KeyValuePair<string, object> t in h1)
+                        {
+                            string tkey = h.Key + '.' + t.Key;
+                            nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t.Value)));
                         }
                     }
-                    string key = (string)s["attribute"];
-                    if (key == "RId")
-                        key = "Id";
-                    nodeList.Add(new KeyValuePair<string, UInt64>(key, idValue));
                 }
             }
             return nodeList;
@@ -197,7 +221,6 @@ namespace GetOneHopNode
 
                         Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 10000000, attributes: "Id");
                         attr = ((ArrayList)dataJson["entities"]);
-
                         break;
                     }
             }
