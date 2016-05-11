@@ -1,0 +1,12 @@
+C:\Users\neo_m\Source\tmpqts\restServer\bin\restServer.dll.config
+C:\Users\neo_m\Source\tmpqts\restServer\bin\restServer.dll
+C:\Users\neo_m\Source\tmpqts\restServer\bin\restServer.pdb
+C:\Users\neo_m\Source\tmpqts\restServer\bin\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\restServer\bin\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\restServer\obj\Debug\restServer.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\restServer\obj\Debug\restServer.dll
+C:\Users\neo_m\Source\tmpqts\restServer\obj\Debug\restServer.pdb
+C:\Users\neo_m\Source\tmpqts\restServer\bin\Brute-force1.dll
+C:\Users\neo_m\Source\tmpqts\restServer\bin\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\restServer\bin\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\restServer\bin\GetOneHopNode.pdb

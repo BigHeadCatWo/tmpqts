@@ -8,3 +8,13 @@ I:\github\tmpqts\Brute-force1\bin\Debug\magApiCs.pdb
 I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.csprojResolveAssemblyReference.cache
 I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.exe
 I:\github\tmpqts\Brute-force1\obj\Debug\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Debug\Brute-force1.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Debug\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\Brute-force1.exe.config
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Debug\Brute-force1.exe
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Debug\Brute-force1.exe

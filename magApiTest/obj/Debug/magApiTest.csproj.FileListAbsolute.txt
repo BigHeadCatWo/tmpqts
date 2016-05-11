@@ -1,0 +1,8 @@
+C:\Users\neo_m\Source\tmpqts\magApiTest\bin\Debug\magApiTest.exe.config
+C:\Users\neo_m\Source\tmpqts\magApiTest\bin\Debug\magApiTest.exe
+C:\Users\neo_m\Source\tmpqts\magApiTest\bin\Debug\magApiTest.pdb
+C:\Users\neo_m\Source\tmpqts\magApiTest\bin\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\magApiTest\bin\Debug\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\magApiTest\obj\Debug\magApiTest.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\magApiTest\obj\Debug\magApiTest.exe
+C:\Users\neo_m\Source\tmpqts\magApiTest\obj\Debug\magApiTest.pdb

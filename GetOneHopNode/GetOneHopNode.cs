@@ -265,6 +265,14 @@ namespace GetOneHopNode
                         }
                         continue;
                     }
+                    if (h.Key == "C")
+                    {
+                        foreach (KeyValuePair<string, object> t in (Dictionary<string, object>)h.Value)
+                        {
+                            nodeList.Add(new KeyValuePair<string, ulong>("C." + t.Key, Convert.ToUInt64(t.Value)));
+                        }
+                        continue;
+                    }
                     foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
                     {
                         foreach (KeyValuePair<string, object> t in h1)
