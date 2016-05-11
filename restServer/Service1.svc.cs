@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using magApiCs;
 using System.Collections;
+using Brute_force1;
 namespace restServer
 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码、svc 和配置文件中的类名“Service1”。
@@ -60,11 +61,7 @@ namespace restServer
             //TODO:z在这里调用主程序，返回List<List<UInt64>>
             //
             //json 返回测试
-            List<List<UInt64>> pathList = new List<List<UInt64>>();
-            List<UInt64> a = new List<UInt64>() { id1, id2 };
-            List<UInt64> b = new List<UInt64>() { auid1, 3, auid2 };
-            pathList.Add(a);
-            pathList.Add(b);
+            List<List<UInt64>> pathList = Solution.solve(pair[0], pair[1]);
             return pathList;
             //json返回测试
         }
@@ -77,36 +74,13 @@ namespace restServer
         {
             magApi mag = new magApi();
             ArrayList attr = new ArrayList();
-            SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
 
             StringBuilder str = new StringBuilder("composite(AA.AuId=");
             str.Append(id.ToString());
             str.Append(')');
             Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 100000000, attributes: "Id");
-            attr = ((ArrayList)dataJson["histograms"]);
-            foreach (Dictionary<string, object> s in attr)
-            {
-                foreach (Dictionary<string, object> h in (ArrayList)s["histogram"])
-                {
-                    UInt64 idValue;
-                    try
-                    {
-                        idValue = (UInt64)h["value"];
-                    }
-                    catch
-                    {
-                        try
-                        {
-                            idValue = (UInt64)(long)h["value"];
-                        }
-                        catch
-                        {
-                            idValue = (UInt64)(int)h["value"];
-                        }
-                    }
-                    nodeList.Add(new KeyValuePair<string, UInt64>((string)s["attribute"], idValue));
-                }
-            }
+            attr = ((ArrayList)dataJson["entities"]);
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = convertJsonDatoToList(attr);
             if (nodeList.Count != 0)
                 return true;
             else
@@ -124,6 +98,51 @@ namespace restServer
                 else
                     return x.Value.CompareTo(y.Value);
             }
+        }
+        private SortedSet<KeyValuePair<string, UInt64>> convertJsonDatoToList(ArrayList attr)
+        {
+            SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
+
+            foreach (Dictionary<string, object> s in attr)
+            {
+                foreach (KeyValuePair<string, object> h in s)
+                {
+                    if (h.Key == "logprob")
+                        continue;
+                    if (h.Key == "Id")
+                    {
+                        nodeList.Add(new KeyValuePair<string, ulong>(h.Key, Convert.ToUInt64(h.Value)));
+                        continue;
+                    }
+                    if (h.Key == "RId" || h.Key == "Id")
+                    {
+                        foreach (object t in (ArrayList)h.Value)
+                        {
+                            string tkey = "Id";
+                            nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t)));
+                        }
+                        continue;
+                    }
+                    if (h.Key == "J")
+                    {
+                        foreach (KeyValuePair<string, object> t in (Dictionary<string, object>)h.Value)
+                        {
+                            nodeList.Add(new KeyValuePair<string, ulong>("J." + t.Key, Convert.ToUInt64(t.Value)));
+                        }
+                        continue;
+                    }
+                    foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
+                    {
+                        foreach (KeyValuePair<string, object> t in h1)
+                        {
+                            string tkey = h.Key + '.' + t.Key;
+                            nodeList.Add(new KeyValuePair<string, ulong>(tkey, Convert.ToUInt64(t.Value)));
+                        }
+                    }
+                }
+            }
+
+            return nodeList;
         }
     }
 }

@@ -38,9 +38,10 @@ namespace Brute_force1
             ///大家看看这组数据有多少边，我这里出来2584条，感觉有点虚：2126125555，2153635508
             ///两跳测试
             ///id--id
-            node1 = new KeyValuePair<string, UInt64>("Id", 2094437628);
-            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2273736245);
-            Solution.solve(node1, node2);
+            node1 = new KeyValuePair<string, UInt64>("Id", 2126125555);
+            node2 = new KeyValuePair<string, UInt64>("Id", 2060367530);
+
+            List<List<UInt64>> pathList= Solution.solve(node1, node2);
             ///三跳测试
             ///id--id
             //node1 = new KeyValuePair<string, UInt64>("Id", 2094437628);
@@ -49,7 +50,7 @@ namespace Brute_force1
             Console.ReadLine();
         }
     }
-    class Solution
+    public class Solution
     {
         private class SortedSetComparer : IComparer<KeyValuePair<string, UInt64>>
         {
@@ -197,8 +198,9 @@ namespace Brute_force1
         /// <param name="node1">节点1</param>
         /// <param name="node2">节点2</param>
        
-        public static void solve(KeyValuePair<string, UInt64> node1, KeyValuePair<string, UInt64> node2)
+        public static List<List<UInt64>> solve(KeyValuePair<string, UInt64> node1, KeyValuePair<string, UInt64> node2)
         {
+            List<List<UInt64>> ans=new List<List<UInt64>>();
             long count = 0;
             long start, end,start_;
             int chushu = 10000000;
@@ -218,10 +220,11 @@ namespace Brute_force1
                 //存在one-hop
                 Console.WriteLine("{0}:存在one-hop", count++);
                 Console.WriteLine("[{0},{1}]", node1, node2);
-                StreamWriter sw = new StreamWriter("I:\\1.txt", true);
-                sw.WriteLine("[{0},{1}]", node1, node2);
-                sw.Flush();
-                sw.Close();
+                //StreamWriter sw = new StreamWriter("1.txt", true);
+                //sw.WriteLine("[{0},{1}]", node1, node2);
+                //sw.Flush();
+                //sw.Close();
+                ans.Add(new List<ulong>() { node1.Value, node2.Value });
             }
             end = DateTime.Now.Ticks;
             Console.WriteLine("一跳全部花费{0}", (end - start) / chushu);
@@ -240,6 +243,7 @@ namespace Brute_force1
                 {
                     Console.WriteLine("{0}:存在two-hop", count++);
                     Console.WriteLine("[{0},{1},{2}]", node1, kv.Key, node2);
+                    ans.Add(new List<ulong> { node1.Value, kv.Key.Value, node2.Value });
                 }
             }
             end = DateTime.Now.Ticks;
@@ -275,6 +279,7 @@ namespace Brute_force1
                     {
                         Console.WriteLine("{0}:存在three-hop", count++);
                         Console.WriteLine("[{0},{1},{2},{3}]", node1, kv.Key, lastNode, node2);
+                        ans.Add(new List<ulong>() { node1.Value, kv.Key.Value, lastNode.Value, node2.Value });
                     }
                 }
                
@@ -282,6 +287,7 @@ namespace Brute_force1
             end = DateTime.Now.Ticks;
             Console.WriteLine("三跳全部花费{0}", (end - start) / chushu);
             Console.WriteLine("总时间{0}", (end - start_) / chushu);
+            return ans;
         }
     }
 }

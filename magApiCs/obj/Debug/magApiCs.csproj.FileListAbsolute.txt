@@ -3,3 +3,7 @@ I:\github\tmpqts\magApiCs\bin\Debug\magApiCs.pdb
 I:\github\tmpqts\magApiCs\obj\Debug\magApiCs.csprojResolveAssemblyReference.cache
 I:\github\tmpqts\magApiCs\obj\Debug\magApiCs.dll
 I:\github\tmpqts\magApiCs\obj\Debug\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\magApiCs\bin\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\magApiCs\bin\Debug\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Debug\magApiCs.pdb

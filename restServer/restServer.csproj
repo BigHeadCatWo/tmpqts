@@ -89,6 +89,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Brute-force1\Brute-force1.csproj">
+      <Project>{5781cb7d-7388-43b2-9d2a-4f8cd526313c}</Project>
+      <Name>Brute-force1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\magApiCs\magApiCs.csproj">
       <Project>{a89cb32b-663d-425e-8364-81997b0db435}</Project>
       <Name>magApiCs</Name>

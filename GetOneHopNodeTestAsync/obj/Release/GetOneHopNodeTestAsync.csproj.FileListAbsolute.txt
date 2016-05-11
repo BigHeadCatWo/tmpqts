@@ -1,0 +1,10 @@
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\GetOneHopNodeTestAsync.exe.config
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\GetOneHopNodeTestAsync.exe
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\GetOneHopNodeTestAsync.pdb
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\bin\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\obj\Release\GetOneHopNodeTestAsync.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\obj\Release\GetOneHopNodeTestAsync.exe
+C:\Users\neo_m\Source\tmpqts\GetOneHopNodeTestAsync\obj\Release\GetOneHopNodeTestAsync.pdb

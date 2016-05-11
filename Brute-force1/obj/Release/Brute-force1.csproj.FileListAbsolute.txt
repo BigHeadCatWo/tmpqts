@@ -8,3 +8,13 @@ I:\github\tmpqts\Brute-force1\bin\Release\magApiCs.pdb
 I:\github\tmpqts\Brute-force1\obj\Release\Brute-force1.csprojResolveAssemblyReference.cache
 I:\github\tmpqts\Brute-force1\obj\Release\Brute-force1.exe
 I:\github\tmpqts\Brute-force1\obj\Release\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Release\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\Brute-force1.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Release\Brute-force1.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\Brute-force1.dll.config
+C:\Users\neo_m\Source\tmpqts\Brute-force1\bin\Release\Brute-force1.dll
+C:\Users\neo_m\Source\tmpqts\Brute-force1\obj\Release\Brute-force1.dll
