@@ -299,7 +299,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(t.Value), selectedId, dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode,new KeyValuePair<string, UInt64>("Id",selectedId), t, dstNode);
+                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", t, srcNode,new KeyValuePair<string, UInt64>("Id",selectedId), dstNode);
                                 }
                             }
                             continue;
@@ -312,7 +312,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(t.Value), selectedId, dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode,new KeyValuePair<string, UInt64>("Id",selectedId), (t), dstNode);
+                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, (t), new KeyValuePair<string, UInt64>("Id",selectedId), dstNode);
                                 }
                             }
                         }
