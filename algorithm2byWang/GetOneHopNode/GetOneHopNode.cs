@@ -60,7 +60,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("composite(AA.AuId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AuId,AA.AfId");
+                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AuId,AA.AfId,C.CId,F.FId,J.JId");
                         attr = ((ArrayList)dataJson["entities"]);
                         LastNodeAttrOfDst = attr;
                         SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
