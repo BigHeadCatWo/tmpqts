@@ -20,7 +20,7 @@ namespace algorithm2byWang
             KeyValuePair<string, UInt64> node1;
             KeyValuePair<string, UInt64> node2;
             node1 = new KeyValuePair<string, UInt64>("Id", 2126125555);
-            node2 = new KeyValuePair<string, UInt64>("Id", 2060367530);
+            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2165875728);
             test.solve(node1, node2);
             sw.Flush();
             sw.Close();
@@ -272,6 +272,8 @@ namespace algorithm2byWang
                             {
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
+                                    if (t.Key == "AfId")
+                                        continue;
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t.Value), dstNode.Value });
                                     Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode,new KeyValuePair<string, UInt64>("Id",selectedId), t, dstNode);
                                 }
@@ -299,7 +301,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(t.Value), selectedId, dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", t, srcNode,new KeyValuePair<string, UInt64>("Id",selectedId), dstNode);
+                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode,t, new KeyValuePair<string, UInt64>("Id",selectedId), dstNode);
                                 }
                             }
                             continue;
@@ -370,6 +372,7 @@ namespace algorithm2byWang
                 }
             });
             #endregion
+
             //3-hop
             if (srcNode.Key == "Id")
                 threeHop_str1.Start();
