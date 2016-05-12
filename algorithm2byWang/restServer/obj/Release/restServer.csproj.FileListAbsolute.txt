@@ -10,3 +10,15 @@ C:\Users\neo_m\Source\tmpqts\restServer\bin\Brute-force1.dll
 C:\Users\neo_m\Source\tmpqts\restServer\bin\GetOneHopNode.dll
 C:\Users\neo_m\Source\tmpqts\restServer\bin\Brute-force1.pdb
 C:\Users\neo_m\Source\tmpqts\restServer\bin\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\restServer.dll.config
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\restServer.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\restServer.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\algorithm2byWang.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\algorithm2byWang.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\bin\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\obj\Release\restServer.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\obj\Release\restServer.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\restServer\obj\Release\restServer.pdb
