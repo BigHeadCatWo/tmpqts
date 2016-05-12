@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOneHopNode", "GetOneHopN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetOneHopNodeTest", "GetOneHopNodeTest\GetOneHopNodeTest.csproj", "{8794EF8A-8739-4286-851F-25FB8878CD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "restServer", "restServer\restServer.csproj", "{EC6DA5E5-6E09-48EF-9097-FFCA5885C5B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8794EF8A-8739-4286-851F-25FB8878CD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6DA5E5-6E09-48EF-9097-FFCA5885C5B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6DA5E5-6E09-48EF-9097-FFCA5885C5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6DA5E5-6E09-48EF-9097-FFCA5885C5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6DA5E5-6E09-48EF-9097-FFCA5885C5B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

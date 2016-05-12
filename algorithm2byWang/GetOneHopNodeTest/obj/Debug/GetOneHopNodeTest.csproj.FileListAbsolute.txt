@@ -24,8 +24,6 @@ C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\Debug\GetOne
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNodeTest.exe.config
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNodeTest.exe
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNodeTest.pdb
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNodeTest.exe.CodeAnalysisLog.xml
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNodeTest.exe.lastcodeanalysissucceeded
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNode.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Debug\GetOneHopNode.pdb
