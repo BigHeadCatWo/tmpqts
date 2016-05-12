@@ -21,7 +21,11 @@ namespace algorithm2byWang
             KeyValuePair<string, UInt64> node2;
             node1 = new KeyValuePair<string, UInt64>("AA.AuId", 2120836466);
             node2 = new KeyValuePair<string, UInt64>("Id", 2126125555);
-            test.solve(node1, node2);
+            List<List<UInt64>> pathList = test.solve(node1, node2);
+            foreach(var i in pathList)
+            {
+                Console.WriteLine(string.Join(" - ", i));
+            }
             sw.Flush();
             sw.Close();
         }
@@ -30,7 +34,7 @@ namespace algorithm2byWang
     {
         public List<List<UInt64>> solve(KeyValuePair<string, UInt64> srcNode, KeyValuePair<string, UInt64> dstNode)
         {
-            List<List<UInt64>> pathList = new List<List<ulong>>();
+            SortedSet<List<UInt64>> pathList = new SortedSet<List<ulong>>(new SortedSetComparer());
             //
             SortedSet<KeyValuePair<string, UInt64>> NextNodeOfSrc = null;
             ArrayList nextNodeAttrOfSrcAuid = null;
@@ -73,36 +77,38 @@ namespace algorithm2byWang
             getNextNodeOfSrc.Wait();
             if (NextNodeOfSrc.Contains(dstNode))
             {
-                Console.WriteLine("1-hop存在:\n{0}-{1}", srcNode, dstNode);
+                //Console.WriteLine("1-hop存在:\n{0}-{1}", srcNode, dstNode);
                 pathList.Add(new List<ulong>() { srcNode.Value, dstNode.Value });
             }
             else
-                Console.WriteLine("1-hup不存在");
-            #endregion
-            #region search for 2-hop
-            Task searchOf2hop = new Task(() =>
             {
-                getLastNodeOfdst.Wait();
-                SortedSet<KeyValuePair<string, UInt64>> instSet = new SortedSet<KeyValuePair<string, ulong>>(new GetOneHopNodeClass.SortedSetComparer());
-                foreach (var s in NextNodeOfSrc)
+                //Console.WriteLine("1-hup不存在");
+            }
+                #endregion
+                #region search for 2-hop
+                Task searchOf2hop = new Task(() =>
                 {
-                    instSet.Add(s);
-                }
-                instSet.IntersectWith(LastNodeOfdst);
-                if (instSet.Count != 0)
-                {
-                    Console.WriteLine("2-hop存在");
-                    foreach (var s in instSet)
+                    getLastNodeOfdst.Wait();
+                    SortedSet<KeyValuePair<string, UInt64>> instSet = new SortedSet<KeyValuePair<string, ulong>>(new GetOneHopNodeClass.SortedSetComparer());
+                    foreach (var s in NextNodeOfSrc)
                     {
-                        Console.WriteLine("{0}-{1}-{2}", srcNode, s, dstNode);
-                        pathList.Add(new List<ulong>() { srcNode.Value, s.Value, dstNode.Value });
+                        instSet.Add(s);
                     }
-                }
-                else
-                {
-                    Console.WriteLine("2-hop不存在");
-                }
-            });
+                    instSet.IntersectWith(LastNodeOfdst);
+                    if (instSet.Count != 0)
+                    {
+                        //Console.WriteLine("2-hop存在");
+                        foreach (var s in instSet)
+                        {
+                            //Console.WriteLine("{0}-{1}-{2}", srcNode, s, dstNode);
+                            pathList.Add(new List<ulong>() { srcNode.Value, s.Value, dstNode.Value });
+                        }
+                    }
+                    else
+                    {
+                        //Console.WriteLine("2-hop不存在");
+                    }
+                });
             #endregion
             searchOf2hop.Start();
             //3-hop
@@ -257,7 +263,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(t)), dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(t)), dstNode);
                                 }
                             }
                             continue;
@@ -269,7 +275,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t.Value), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
                                 }
                             }
                             continue;
@@ -281,7 +287,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t.Value), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
                                 }
                             }
                         }
@@ -307,7 +313,7 @@ namespace algorithm2byWang
                                 if (nextNodeOfSrcHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(t.Value), selectedId, dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, t, new KeyValuePair<string, UInt64>("Id", selectedId), dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, t, new KeyValuePair<string, UInt64>("Id", selectedId), dstNode);
                                 }
                             }
                             continue;
@@ -322,7 +328,7 @@ namespace algorithm2byWang
                                 if (nextNodeOfSrcHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(t.Value), selectedId, dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, (t), new KeyValuePair<string, UInt64>("Id", selectedId), dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, (t), new KeyValuePair<string, UInt64>("Id", selectedId), dstNode);
                                 }
                             }
                         }
@@ -347,7 +353,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(t)), dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(t)), dstNode);
                                 }
                             }
                             continue;
@@ -359,7 +365,7 @@ namespace algorithm2byWang
                                 if (lastNodeOfDstHash.Contains(Convert.ToUInt64(t.Value)))
                                 {
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t.Value), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), t, dstNode);
                                 }
                             }
                             continue;
@@ -375,7 +381,7 @@ namespace algorithm2byWang
                                 {
 
                                     pathList.Add(new List<ulong>() { srcNode.Value, selectedId, Convert.ToUInt64(t.Value), dstNode.Value });
-                                    Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), (t), dstNode);
+                                    //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("Id", selectedId), (t), dstNode);
                                 }
                             }
                         }
@@ -425,8 +431,8 @@ namespace algorithm2byWang
                                     if (nextNodeOfSrcHash.Contains(Convert.ToUInt64(h1["AuId"])) && lastNodeOfDstHash.Contains(Convert.ToUInt64(h1["AfId"])))
                                     {
                                         pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(h1["AuId"]), Convert.ToUInt64(h1["AfId"]), dstNode.Value });
-                                        //Console.WriteLine("auidAfId");
-                                        Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string,UInt64>("AuId",Convert.ToUInt64(h1["AuId"])), new KeyValuePair<string, UInt64>("AfId",Convert.ToUInt64(h1["AfId"])), dstNode);
+                                        ////Console.WriteLine("auidAfId");
+                                        //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("AuId", Convert.ToUInt64(h1["AuId"])), new KeyValuePair<string, UInt64>("AfId", Convert.ToUInt64(h1["AfId"])), dstNode);
                                     }
                                 }
                                 catch
@@ -437,7 +443,7 @@ namespace algorithm2byWang
             });
             #endregion
             #region auid-afid-auid-id
-            Task threeHop_afidAuidForIdAuid = new Task(()=> 
+            Task threeHop_afidAuidForIdAuid = new Task(() =>
             {
                 hashOfLastNodeOfDst.Wait();
                 UInt64 MaxCount = 1000000;
@@ -478,8 +484,8 @@ namespace algorithm2byWang
                                     if (nextNodeOfSrcHash.Contains(Convert.ToUInt64(h1["AfId"])) && lastNodeOfDstHash.Contains(Convert.ToUInt64(h1["AuId"])))
                                     {
                                         pathList.Add(new List<ulong>() { srcNode.Value, Convert.ToUInt64(h1["AfId"]), Convert.ToUInt64(h1["AuId"]), dstNode.Value });
-                                        //Console.WriteLine("auidAfId");
-                                        Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("AfId", Convert.ToUInt64(h1["AfId"])), new KeyValuePair<string, UInt64>("AuId", Convert.ToUInt64(h1["AuId"])), dstNode);
+                                        ////Console.WriteLine("auidAfId");
+                                        //Console.WriteLine("3-hop:{0}-{1}-{2}-{3}", srcNode, new KeyValuePair<string, UInt64>("AfId", Convert.ToUInt64(h1["AfId"])), new KeyValuePair<string, UInt64>("AuId", Convert.ToUInt64(h1["AuId"])), dstNode);
                                     }
                                 }
                                 catch
@@ -525,7 +531,19 @@ namespace algorithm2byWang
             }
             threeHop_str2.Wait();
             searchOf2hop.Wait();
-            return pathList;
+            return pathList.ToList() ;
+        }
+        public class SortedSetComparer : IComparer<List<UInt64>>
+        {
+            public int Compare(List<UInt64> x, List<UInt64> y)
+            {
+                if (x.Count != y.Count)
+                    return x.Count.CompareTo(y.Count);
+                for (int i = 0; i < x.Count; i++)
+                    if (x[i] != y[i])
+                        return x[i].CompareTo(y[i]);
+                return x[0].CompareTo(y[0]);
+            }
         }
     }
 }

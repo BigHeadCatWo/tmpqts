@@ -19,3 +19,10 @@ C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\GetOneHopNode\bin\Release\magApi
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.csprojResolveAssemblyReference.cache
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.dll
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Release\GetOneHopNode.pdb

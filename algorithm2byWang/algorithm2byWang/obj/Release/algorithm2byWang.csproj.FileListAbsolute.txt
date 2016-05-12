@@ -8,3 +8,13 @@ C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\algorithm2byWang\bin\Release\mag
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.csprojResolveAssemblyReference.cache
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.exe
 C:\Users\neo_m\Desktop\BOP2016\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\algorithm2byWang.exe.config
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\algorithm2byWang.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\algorithm2byWang.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\Release\algorithm2byWang.csprojResolveAssemblyReference.cache
