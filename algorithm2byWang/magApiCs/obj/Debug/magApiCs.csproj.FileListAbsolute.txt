@@ -11,5 +11,4 @@ C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.pdb
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.pdb
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.dll.CodeAnalysisLog.xml
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.dll.lastcodeanalysissucceeded
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.csprojResolveAssemblyReference.cache

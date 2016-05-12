@@ -19,8 +19,8 @@ namespace algorithm2byWang
             algorithm2byWang test = new algorithm2byWang();
             KeyValuePair<string, UInt64> node1;
             KeyValuePair<string, UInt64> node2;
-            node1 = new KeyValuePair<string, UInt64>("AA.AuId", 2120836466);
-            node2 = new KeyValuePair<string, UInt64>("Id", 2126125555);
+            node1 = new KeyValuePair<string, UInt64>("Id", 2016266703);
+            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 1905283345);
             List<List<UInt64>> pathList = test.solve(node1, node2);
             foreach(var i in pathList)
             {
@@ -224,6 +224,15 @@ namespace algorithm2byWang
             {
                 if (str1L.Count == 0)
                     return;
+                int maxExprNum = 40;
+                List<Task> taskList = new List<Task>();
+                List<List<string>> taskStrList = new List<List<string>>();
+                //ToDo
+                //for(int i=0;i<str1L.Count;i+=maxExprNum)
+                //{
+                //    taskStrList.Add(str1L.GetRange(i,Math.Min(maxExprNum,str1L.Count-i)));
+                //    taskList.Add((str1Lpart) => { });
+                //}
                 UInt64 MaxCount = 1000000;
                 string str1LT = string.Join(",or(", str1L.ToArray());
                 StringBuilder str1 = new StringBuilder($"or({str1LT}");
@@ -392,6 +401,8 @@ namespace algorithm2byWang
             #region id-auid-afid-auid
             Task threeHop_auidAfidForIdSrc = new Task(() =>
             {
+                if (strLAuId.Count == 0)
+                    return;
                 hashOfLastNodeOfDst.Wait();
                 UInt64 MaxCount = 1000000;
                 StringBuilder strL = new StringBuilder("or(" + string.Join(",or(", strLAuId.ToArray()));
@@ -446,6 +457,8 @@ namespace algorithm2byWang
             Task threeHop_afidAuidForIdAuid = new Task(() =>
             {
                 hashOfLastNodeOfDst.Wait();
+                if (strLAfId.Count == 0)
+                    return;
                 UInt64 MaxCount = 1000000;
                 StringBuilder strL = new StringBuilder("or(" + string.Join(",or(", strLAfId.ToArray()));
                 strL.Append(',' + strLAfId.Last().ToString());
