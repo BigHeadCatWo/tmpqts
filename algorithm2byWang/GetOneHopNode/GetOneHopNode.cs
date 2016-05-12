@@ -159,11 +159,11 @@ namespace GetOneHopNode
             }
             //构造1-hop node列表
 
-            Console.WriteLine("hehe");
-            long start = DateTime.Now.Ticks;
+            //Console.WriteLine("hehe");
+            //long start = DateTime.Now.Ticks;
             nodeList = convertJsonDataToList(attr);
-            long end = DateTime.Now.Ticks;
-            Console.WriteLine("cost:{0}", (end - start) / 100000000);
+            //long end = DateTime.Now.Ticks;
+            //Console.WriteLine("cost:{0}", (end - start) / 100000000);
             return nodeList;
         }
         private SortedSet<KeyValuePair<string, UInt64>> convertJsonDataToList(ArrayList attr)
