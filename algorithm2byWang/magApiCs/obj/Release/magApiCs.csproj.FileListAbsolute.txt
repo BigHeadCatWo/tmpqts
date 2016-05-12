@@ -8,3 +8,7 @@ C:\Users\neo_m\Source\tmpqts\magApiCs\bin\Release\magApiCs.pdb
 C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Release\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Release\magApiCs.pdb
 C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Release\magApiCs.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Release\magApiCs.pdb

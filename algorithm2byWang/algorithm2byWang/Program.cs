@@ -19,8 +19,8 @@ namespace algorithm2byWang
             algorithm2byWang test = new algorithm2byWang();
             KeyValuePair<string, UInt64> node1;
             KeyValuePair<string, UInt64> node2;
-            node1 = new KeyValuePair<string, UInt64>("Id", 2126125555);
-            node2 = new KeyValuePair<string, UInt64>("Id", 2060367530);
+            node1 = new KeyValuePair<string, UInt64>("Id", 2143554828);
+            node2 = new KeyValuePair<string, UInt64>("AA.AuId", 2099495348);
             List<List<UInt64>> pathList = test.solve(node1, node2);
             Console.WriteLine("number of path:{0}", pathList.Count);
             Console.SetOut(sw);
@@ -591,7 +591,7 @@ namespace algorithm2byWang
             {
                 int hash = 19;
                 foreach (var i in x)
-                    hash = hash * 31 + x.GetHashCode();
+                    hash = hash * 31 + i.GetHashCode();
                 return hash;
             }
         }
