@@ -8,33 +8,53 @@ using System.Web;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Net;
 namespace magApiCs
 {
     public class magApi
     {
-        private HttpClient client = new HttpClient();
-        private Task<HttpResponseMessage> response;
-        /// <summary>
-        /// 获取Request
-        /// </summary>
-        /// <param name="_str"></param>
-        /// <param name="_count"></param>
-        /// <param name="_offset"></param>
-        /// <param name="_attributes"></param>
-        private void MakeRequest(string _str,UInt64 _count,UInt64 _offset,string _attributes)
+        private WebClient webClient = new WebClient();
+        private HttpClient httpClient = new HttpClient();
+
+
+
+        //private Task<HttpResponseMessage> response;
+        ///// <summary>
+        ///// 获取Request
+        ///// </summary>
+        ///// <param name="_str"></param>
+        ///// <param name="_count"></param>
+        ///// <param name="_offset"></param>
+        ///// <param name="_attributes"></param>
+        //private void MakeRequest(string _str,UInt64 _count,UInt64 _offset,string _attributes)
+        //{
+        //    var queryString = HttpUtility.ParseQueryString(string.Empty);
+        //    // Request headers
+        //    httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
+        //    // Request parameters
+        //    queryString["expr"] = _str;
+        //    queryString["model"] = "latest";
+        //    queryString["attributes"] = _attributes;
+        //    queryString["count"] = _count.ToString();
+        //    queryString["offset"] = _offset.ToString();
+        //    var uri = "https://oxfordhk.azure-api.net/academic/v1.0/evaluate?" + queryString;
+        //    response = httpClient.GetAsync(uri);
+        //}
+
+        private string responseWeb;
+        private void MakeResquestWeb(string _str, UInt64 _count, UInt64 _offset, string _attributes)
         {
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-            // Request headers
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
-            // Request parameters
             queryString["expr"] = _str;
             queryString["model"] = "latest";
             queryString["attributes"] = _attributes;
             queryString["count"] = _count.ToString();
             queryString["offset"] = _offset.ToString();
             var uri = "https://oxfordhk.azure-api.net/academic/v1.0/evaluate?" + queryString;
-            response = client.GetAsync(uri);
+            webClient.Headers.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
+            responseWeb = webClient.DownloadString(uri);
         }
+
         /// <summary>
         /// 以dictionary类返回JSON的内容
         /// </summary>
@@ -48,7 +68,7 @@ namespace magApiCs
             string jsonStr;
             try
             {
-                MakeRequest(str, count, offset, attributes);
+                MakeResquestWeb(str, count, offset, attributes);
             }
             catch(Exception ex)
             {
@@ -58,7 +78,7 @@ namespace magApiCs
             json.MaxJsonLength = 209715200;
             try
             {
-                jsonStr = response.Result.Content.ReadAsStringAsync().Result;
+                jsonStr = responseWeb;
                 return json.Deserialize<Dictionary<string, object>>(jsonStr);
             }
             catch(Exception ex)
