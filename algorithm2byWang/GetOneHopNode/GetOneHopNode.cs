@@ -26,33 +26,50 @@ namespace GetOneHopNode
             }
         }
         private magApi mag = new magApi();
-        public SortedSet<KeyValuePair<string, UInt64>> getLastNode(KeyValuePair<string, UInt64> sourceNode,ref ArrayList LastNodeAttrOfDst)
+        public SortedSet<KeyValuePair<string, UInt64>> getLastNode(KeyValuePair<string, UInt64> sourceNode, ref ArrayList LastNodeAttrOfDst)
         {
             ulong MaxCount = 1000000;
-            ArrayList attr = new ArrayList();
+            ArrayList attr;
             switch (sourceNode.Key)
             {
                 case "Id":
                     {
-                        StringBuilder str = new StringBuilder("RId=");
-                        str.Append(sourceNode.Value.ToString());
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,F.FId,C.CId,J.JId,AA.AuId");
-                        attr = ((ArrayList)dataJson["entities"]);
                         SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());
-                        LastNodeAttrOfDst = attr;
-                        foreach (Dictionary<string, object> s in attr)
+                        ArrayList LastNodeAttrOfDstTemp = null;
+                        Task getLastNodeForId_1 = new Task(() =>
                         {
-                            nodeList.Add(new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(s["Id"])));
-                        }
-                        str.Clear();
-                        str.Append("Id=" + sourceNode.Value.ToString());
-                        dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
-                        attr = ((ArrayList)dataJson["entities"]);
-                        SortedSet<KeyValuePair<string, UInt64>> nodeListTemp = convertJsonDataToList(attr);
-                        foreach(var s in nodeListTemp)
+                            ArrayList attrT;
+                            magApi mag = new magApi();
+                            StringBuilder str = new StringBuilder("RId=");
+                            str.Append(sourceNode.Value.ToString());
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,F.FId,C.CId,J.JId,AA.AuId");
+                            attrT = ((ArrayList)dataJson["entities"]);
+                            LastNodeAttrOfDstTemp = attrT;
+                            foreach (Dictionary<string, object> s in attrT)
+                            {
+                                lock (nodeList)
+                                nodeList.Add(new KeyValuePair<string, UInt64>("Id", Convert.ToUInt64(s["Id"])));
+                            }
+                        });
+                        Task getLastNodeForId_2 = new Task(() =>
                         {
-                            nodeList.Add(s);
-                        }
+                            magApi mag = new magApi();
+                            ArrayList attrT;
+                            StringBuilder str = new StringBuilder("Id=" + sourceNode.Value.ToString());
+                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
+                            attrT = ((ArrayList)dataJson["entities"]);
+                            SortedSet<KeyValuePair<string, UInt64>> nodeListTemp = convertJsonDataToList(attrT);
+                            foreach (var s in nodeListTemp)
+                            {
+                                lock (nodeList)
+                                nodeList.Add(s);
+                            }
+                        });
+                        getLastNodeForId_1.Start();
+                        getLastNodeForId_2.Start();
+                        getLastNodeForId_2.Wait();
+                        getLastNodeForId_1.Wait();
+                        LastNodeAttrOfDst = LastNodeAttrOfDstTemp;
                         return nodeList;
                     }
                 case "AA.AuId":
@@ -80,7 +97,7 @@ namespace GetOneHopNode
                                 {
                                     foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
                                     {
-                                        if(Convert.ToUInt64(h1["AuId"])== sourceNode.Value)
+                                        if (Convert.ToUInt64(h1["AuId"]) == sourceNode.Value)
                                         {
                                             try
                                             {
@@ -100,10 +117,10 @@ namespace GetOneHopNode
             }
             return null;
         }
-        public SortedSet<KeyValuePair<string, UInt64>> getNextNode(KeyValuePair<string, UInt64> sourceNode,ref ArrayList nextNodeAttrOfSrcAuid)
+        public SortedSet<KeyValuePair<string, UInt64>> getNextNode(KeyValuePair<string, UInt64> sourceNode, ref ArrayList nextNodeAttrOfSrcAuid)
         {
             ulong MaxCount = 1000000;
-            ArrayList attr =new ArrayList();
+            ArrayList attr = new ArrayList();
             SortedSet<KeyValuePair<string, UInt64>> nodeList = null;
             switch (sourceNode.Key)
             {
@@ -137,14 +154,14 @@ namespace GetOneHopNode
                                     nodeList.Add(new KeyValuePair<string, ulong>(h.Key, Convert.ToUInt64(h.Value)));
                                     continue;
                                 }
-                                if(h.Key=="AA")
+                                if (h.Key == "AA")
                                 {
                                     foreach (Dictionary<string, object> h1 in (ArrayList)h.Value)
                                     {
                                         try
                                         {
-                                            if(Convert.ToUInt64(h1["AuId"])==sourceNode.Value)
-                                            nodeList.Add(new KeyValuePair<string, ulong>("AA.AfId", Convert.ToUInt64(h1["AfId"])));
+                                            if (Convert.ToUInt64(h1["AuId"]) == sourceNode.Value)
+                                                nodeList.Add(new KeyValuePair<string, ulong>("AA.AfId", Convert.ToUInt64(h1["AfId"])));
                                         }
                                         catch
                                         { }
@@ -176,12 +193,12 @@ namespace GetOneHopNode
                 {
                     if (h.Key == "logprob")
                         continue;
-                    if(h.Key=="Id")
+                    if (h.Key == "Id")
                     {
                         nodeList.Add(new KeyValuePair<string, ulong>(h.Key, Convert.ToUInt64(h.Value)));
                         continue;
                     }
-                    if (h.Key == "RId"||h.Key=="Id")
+                    if (h.Key == "RId" || h.Key == "Id")
                     {
                         foreach (object t in (ArrayList)h.Value)
                         {
