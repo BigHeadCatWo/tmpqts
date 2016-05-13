@@ -2,7 +2,7 @@
 <VSPerformanceSession Version="1.00">
   <Options>
     <Solution>algorithm2byWang.sln</Solution>
-    <CollectionMethod>Sampling</CollectionMethod>
+    <CollectionMethod>Instrumentation</CollectionMethod>
     <AllocationMethod>None</AllocationMethod>
     <AddReport>true</AddReport>
     <ResourceBasedAnalysisSelected>true</ResourceBasedAnalysisSelected>
@@ -36,7 +36,7 @@
   </PostinstrumentEvent>
   <Binaries>
     <ProjBinary>
-      <Path>algorithm2byWang\obj\Release\algorithm2byWang.exe</Path>
+      <Path>algorithm2byWang\obj\Debug\algorithm2byWang.exe</Path>
       <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
       <Instrument>true</Instrument>
       <Sample>true</Sample>
@@ -48,8 +48,8 @@
       <LaunchProject>true</LaunchProject>
       <OverrideProjectSettings>false</OverrideProjectSettings>
       <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>algorithm2byWang\bin\Release\algorithm2byWang.exe</ExecutablePath>
-      <StartupDirectory>algorithm2byWang\bin\Release\</StartupDirectory>
+      <ExecutablePath>algorithm2byWang\bin\Debug\algorithm2byWang.exe</ExecutablePath>
+      <StartupDirectory>algorithm2byWang\bin\Debug\</StartupDirectory>
       <Arguments>
       </Arguments>
       <NetAppHost>IIS</NetAppHost>
@@ -69,7 +69,7 @@
   </Binaries>
   <Reports>
     <Report>
-      <Path>algorithm2byWang160512.vspx</Path>
+      <Path>algorithm2byWang160513(1).vsp</Path>
     </Report>
   </Reports>
   <Launches>

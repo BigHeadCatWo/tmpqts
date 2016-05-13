@@ -26,3 +26,10 @@ C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\magApiCs.p
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Debug\GetOneHopNode.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Debug\GetOneHopNode.pdb
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\obj\Debug\GetOneHopNode.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Redis.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Interfaces.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Text.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Common.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Redis.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Text.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNode\bin\Debug\ServiceStack.Common.xml
