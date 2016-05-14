@@ -9,9 +9,6 @@ C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Debug\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\magApiCs\obj\Debug\magApiCs.pdb
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\magApiCs.pdb
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.dll
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.pdb
-C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.csprojResolveAssemblyReference.cache
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Common.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Interfaces.dll
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Redis.dll
@@ -19,3 +16,5 @@ C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Te
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Common.xml
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Redis.xml
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\bin\Debug\ServiceStack.Text.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\magApiCs\obj\Debug\magApiCs.pdb
