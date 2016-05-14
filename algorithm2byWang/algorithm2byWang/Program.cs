@@ -15,7 +15,6 @@ namespace algorithm2byWang
         static void Main(string[] args)
         {
             StreamWriter sw = new StreamWriter(@"ConsoleOutput.txt");
-            
             algorithm2byWang test = new algorithm2byWang();
             KeyValuePair<string, UInt64> node1;
             KeyValuePair<string, UInt64> node2;
@@ -161,9 +160,10 @@ namespace algorithm2byWang
                         }
                     case "AA.AuId":
                         {
-                            str2L.Add("composite(AA.AuId=" + s.Value.ToString() + ')');
-                            str3L.Add("composite(AA.AuId=" + s.Value.ToString() + ')');
-                            strLAuId.Add("composite(AA.AuId=" + s.Value.ToString() + ')');
+                            var value = s.Value.ToString();
+                            str2L.Add("composite(AA.AuId=" + value + ')');
+                            str3L.Add("composite(AA.AuId=" + value + ')');
+                            strLAuId.Add("composite(AA.AuId=" + value + ')');
                             break;
                         }
                     case "AA.AfId":

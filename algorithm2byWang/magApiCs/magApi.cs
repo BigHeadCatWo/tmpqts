@@ -9,14 +9,14 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Net;
+using System.IO;
+using ServiceStack.Redis;
 namespace magApiCs
 {
     public class magApi
     {
         private WebClient webClient = new WebClient();
         private HttpClient httpClient = new HttpClient();
-
-
 
         //private Task<HttpResponseMessage> response;
         ///// <summary>
@@ -42,6 +42,7 @@ namespace magApiCs
         //}
 
         private string responseWeb;
+
         private void MakeResquestWeb(string _str, UInt64 _count, UInt64 _offset, string _attributes)
         {
             var queryString = HttpUtility.ParseQueryString(string.Empty);
@@ -51,8 +52,31 @@ namespace magApiCs
             queryString["count"] = _count.ToString();
             queryString["offset"] = _offset.ToString();
             var uri = "https://oxfordhk.azure-api.net/academic/v1.0/evaluate?" + queryString;
-            webClient.Headers.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
-            responseWeb = webClient.DownloadString(uri);
+
+            RedisClient redisClient = new RedisClient("127.0.0.1", 6379);
+
+            if (redisClient.HashContainsEntry(uri, "uri"))
+            {
+                if (redisClient.GetValueFromHash(uri, "uri") == uri)
+                {
+                    responseWeb = redisClient.GetValueFromHash(uri, "data");
+                }
+                else
+                {
+                    webClient.Headers.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
+                    responseWeb = webClient.DownloadString(uri);
+                    redisClient.SetEntryInHash(uri, "uri", uri);
+                    redisClient.SetEntryInHash(uri, "data", responseWeb);
+                }
+            }
+            else
+            {
+                webClient.Headers.Add("Ocp-Apim-Subscription-Key", "f7cc29509a8443c5b3a5e56b0e38b5a6");
+                responseWeb = webClient.DownloadString(uri);
+                redisClient.SetEntryInHash(uri, "uri", uri);
+                redisClient.SetEntryInHash(uri, "data", responseWeb);
+            }
+
         }
 
         /// <summary>

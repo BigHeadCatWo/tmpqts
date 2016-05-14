@@ -18,3 +18,10 @@ C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\magA
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\Release\GetOneHopNodeTest.csprojResolveAssemblyReference.cache
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\Release\GetOneHopNodeTest.exe
 C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\Release\GetOneHopNodeTest.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Redis.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Interfaces.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Text.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Common.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Redis.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Text.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\Release\ServiceStack.Common.xml
