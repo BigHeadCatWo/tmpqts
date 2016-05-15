@@ -1,0 +1,17 @@
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\algorithm2byWang.exe.config
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\algorithm2byWang.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\algorithm2byWang.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Redis.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Interfaces.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Text.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Common.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Redis.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Text.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\bin\x64\Debug\ServiceStack.Common.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\x64\Debug\algorithm2byWang.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\x64\Debug\algorithm2byWang.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\algorithm2byWang\obj\x64\Debug\algorithm2byWang.pdb

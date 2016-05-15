@@ -79,7 +79,7 @@ namespace restServer
             StringBuilder str = new StringBuilder("composite(AA.AuId=");
             str.Append(id.ToString());
             str.Append(')');
-            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: 1, attributes: "Id");
+            Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: 1, attributes: "Id");
             attr = ((ArrayList)dataJson["entities"]);
             SortedSet<KeyValuePair<string, UInt64>> nodeList = convertJsonDatoToList(attr);
             if (nodeList.Count != 0)

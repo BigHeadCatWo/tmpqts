@@ -1,0 +1,17 @@
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\GetOneHopNodeTest.exe.config
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\GetOneHopNodeTest.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\GetOneHopNodeTest.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\GetOneHopNode.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\magApiCs.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Redis.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Interfaces.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Text.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Common.dll
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\GetOneHopNode.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\magApiCs.pdb
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Redis.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Text.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\bin\x64\Release\ServiceStack.Common.xml
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\x64\Release\GetOneHopNodeTest.csprojResolveAssemblyReference.cache
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\x64\Release\GetOneHopNodeTest.exe
+C:\Users\neo_m\Source\tmpqts\algorithm2byWang\GetOneHopNodeTest\obj\x64\Release\GetOneHopNodeTest.pdb

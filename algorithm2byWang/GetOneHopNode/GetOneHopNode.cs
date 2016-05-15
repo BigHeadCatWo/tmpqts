@@ -42,7 +42,7 @@ namespace GetOneHopNode
                             magApi mag = new magApi();
                             StringBuilder str = new StringBuilder("RId=");
                             str.Append(sourceNode.Value.ToString());
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,F.FId,C.CId,J.JId,AA.AuId");
+                            Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,F.FId,C.CId,J.JId,AA.AuId");
                             attrT = ((ArrayList)dataJson["entities"]);
                             LastNodeAttrOfDstTemp = attrT;
                             foreach (Dictionary<string, object> s in attrT)
@@ -56,7 +56,7 @@ namespace GetOneHopNode
                             magApi mag = new magApi();
                             ArrayList attrT;
                             StringBuilder str = new StringBuilder("Id=" + sourceNode.Value.ToString());
-                            Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
+                            Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,J.JId,C.CId");
                             attrT = ((ArrayList)dataJson["entities"]);
                             SortedSet<KeyValuePair<string, UInt64>> nodeListTemp = convertJsonDataToList(attrT);
                             foreach (var s in nodeListTemp)
@@ -77,7 +77,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("composite(AA.AuId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AuId,AA.AfId,C.CId,F.FId,J.JId");
+                        Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,AA.AuId,AA.AfId,C.CId,F.FId,J.JId");
                         attr = ((ArrayList)dataJson["entities"]);
                         LastNodeAttrOfDst = attr;
                         SortedSet<KeyValuePair<string, UInt64>> nodeList = new SortedSet<KeyValuePair<string, UInt64>>(new SortedSetComparer());
@@ -129,7 +129,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Id=");
                         str.Append(sourceNode.Value.ToString());
 
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,RId,J.JId,C.CId");
+                        Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "F.FId,AA.AuId,RId,J.JId,C.CId");
                         attr = ((ArrayList)dataJson["entities"]);
                         break;
                     }
@@ -138,7 +138,7 @@ namespace GetOneHopNode
                         StringBuilder str = new StringBuilder("Composite(AA.AuId=");
                         str.Append(sourceNode.Value.ToString());
                         str.Append(')');
-                        Dictionary<string, object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,RId,F.FId,C.CId,J.JId,AA.AuId,AA.AfId");
+                        Dictionary<string, Object> dataJson = mag.GetResponse(str: str.ToString(), count: MaxCount, attributes: "Id,RId,F.FId,C.CId,J.JId,AA.AuId,AA.AfId");
                         attr = ((ArrayList)dataJson["entities"]);
                         nextNodeAttrOfSrcAuid = attr;
                         nodeList = new SortedSet<KeyValuePair<string, ulong>>(new SortedSetComparer());

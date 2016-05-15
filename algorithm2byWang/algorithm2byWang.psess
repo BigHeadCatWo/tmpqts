@@ -36,7 +36,7 @@
   </PostinstrumentEvent>
   <Binaries>
     <ProjBinary>
-      <Path>algorithm2byWang\obj\Debug\algorithm2byWang.exe</Path>
+      <Path>algorithm2byWang\obj\x64\Release\algorithm2byWang.exe</Path>
       <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
       <Instrument>true</Instrument>
       <Sample>true</Sample>
@@ -48,8 +48,8 @@
       <LaunchProject>true</LaunchProject>
       <OverrideProjectSettings>false</OverrideProjectSettings>
       <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>algorithm2byWang\bin\Debug\algorithm2byWang.exe</ExecutablePath>
-      <StartupDirectory>algorithm2byWang\bin\Debug\</StartupDirectory>
+      <ExecutablePath>algorithm2byWang\bin\x64\Release\algorithm2byWang.exe</ExecutablePath>
+      <StartupDirectory>algorithm2byWang\bin\x64\Release\</StartupDirectory>
       <Arguments>
       </Arguments>
       <NetAppHost>IIS</NetAppHost>
@@ -66,15 +66,115 @@
       <ProjPath>algorithm2byWang\algorithm2byWang.csproj</ProjPath>
       <ProjName>algorithm2byWang</ProjName>
     </ProjBinary>
+    <ProjBinary>
+      <Path>GetOneHopNode\obj\x64\Release\GetOneHopNode.dll</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <ExternalWebsite>false</ExternalWebsite>
+      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+      <IsLocalJavascript>false</IsLocalJavascript>
+      <IsWindowsStoreApp>false</IsWindowsStoreApp>
+      <IsWWA>false</IsWWA>
+      <LaunchProject>true</LaunchProject>
+      <OverrideProjectSettings>false</OverrideProjectSettings>
+      <LaunchMethod>Executable</LaunchMethod>
+      <StartupDirectory>GetOneHopNode\bin\x64\Release\</StartupDirectory>
+      <Arguments>
+      </Arguments>
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{6BB600F1-89AA-45AB-B092-F108C202E60D}|GetOneHopNode\GetOneHopNode.csproj</ProjRef>
+      <ProjPath>GetOneHopNode\GetOneHopNode.csproj</ProjPath>
+      <ProjName>GetOneHopNode</ProjName>
+    </ProjBinary>
+    <ProjBinary>
+      <Path>GetOneHopNodeTest\obj\x64\Release\GetOneHopNodeTest.exe</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <ExternalWebsite>false</ExternalWebsite>
+      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+      <IsLocalJavascript>false</IsLocalJavascript>
+      <IsWindowsStoreApp>false</IsWindowsStoreApp>
+      <IsWWA>false</IsWWA>
+      <LaunchProject>true</LaunchProject>
+      <OverrideProjectSettings>false</OverrideProjectSettings>
+      <LaunchMethod>Executable</LaunchMethod>
+      <ExecutablePath>GetOneHopNodeTest\bin\x64\Release\GetOneHopNodeTest.exe</ExecutablePath>
+      <StartupDirectory>GetOneHopNodeTest\bin\x64\Release\</StartupDirectory>
+      <Arguments>
+      </Arguments>
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{8794EF8A-8739-4286-851F-25FB8878CD18}|GetOneHopNodeTest\GetOneHopNodeTest.csproj</ProjRef>
+      <ProjPath>GetOneHopNodeTest\GetOneHopNodeTest.csproj</ProjPath>
+      <ProjName>GetOneHopNodeTest</ProjName>
+    </ProjBinary>
+    <ProjBinary>
+      <Path>magApiCs\obj\x64\Release\magApiCs.dll</Path>
+      <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
+      <Instrument>true</Instrument>
+      <Sample>true</Sample>
+      <ExternalWebsite>false</ExternalWebsite>
+      <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
+      <IsLocalJavascript>false</IsLocalJavascript>
+      <IsWindowsStoreApp>false</IsWindowsStoreApp>
+      <IsWWA>false</IsWWA>
+      <LaunchProject>true</LaunchProject>
+      <OverrideProjectSettings>false</OverrideProjectSettings>
+      <LaunchMethod>Executable</LaunchMethod>
+      <StartupDirectory>magApiCs\bin\x64\Release\</StartupDirectory>
+      <Arguments>
+      </Arguments>
+      <NetAppHost>IIS</NetAppHost>
+      <NetBrowser>InternetExplorer</NetBrowser>
+      <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
+      <JScriptProfilingEnabled>false</JScriptProfilingEnabled>
+      <PreinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PreinstrumentEvent>
+      <PostinstrumentEvent>
+        <InstrEventExclude>false</InstrEventExclude>
+      </PostinstrumentEvent>
+      <ProjRef>{A89CB32B-663D-425E-8364-81997B0DB435}|magApiCs\magApiCs.csproj</ProjRef>
+      <ProjPath>magApiCs\magApiCs.csproj</ProjPath>
+      <ProjName>magApiCs</ProjName>
+    </ProjBinary>
   </Binaries>
   <Reports>
     <Report>
-      <Path>algorithm2byWang160513(1).vsp</Path>
+      <Path>algorithm2byWang160514(10).vsp</Path>
+    </Report>
+    <Report>
+      <Path>algorithm2byWang160514(13).vsp</Path>
+    </Report>
+    <Report>
+      <Path>algorithm2byWang160515.vsp</Path>
     </Report>
   </Reports>
   <Launches>
     <ProjBinary>
       <Path>:PB:{A1A9C960-3AA1-42B9-9D55-279957701A0F}|algorithm2byWang\algorithm2byWang.csproj</Path>
+    </ProjBinary>
+    <ProjBinary>
+      <Path>:PB:{8794EF8A-8739-4286-851F-25FB8878CD18}|GetOneHopNodeTest\GetOneHopNodeTest.csproj</Path>
     </ProjBinary>
   </Launches>
 </VSPerformanceSession>
